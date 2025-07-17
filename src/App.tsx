@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import vaspplogo from "./pictures/vaspp-peuqeno-logo.svg";
 import { 
   Brain, 
   TrendingUp, 
@@ -97,7 +98,7 @@ function App() {
     <div className="min-h-screen bg-[#020074] text-white overflow-x-hidden relative">
       {/* Animated Background */}
       <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#020074] via-[#04004b] to-[#020074]"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-[#000000] via-[#020074] to-[#04004b]"></div>
         <div className="absolute inset-0 opacity-20">
           {[...Array(50)].map((_, i) => (
             <motion.div
@@ -134,19 +135,6 @@ function App() {
       {/* Hero Section */}
       <section className="min-h-screen flex items-center justify-center relative z-10 px-4">
         <div className="text-center max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="mb-8"
-          >
-            <FloatingElement>
-              <div className="w-24 h-24 mx-auto mb-8 bg-gradient-to-br from-white/20 to-white/5 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/20">
-                <Brain className="w-12 h-12 text-white" />
-              </div>
-            </FloatingElement>
-          </motion.div>
-
           <motion.h1
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -201,12 +189,6 @@ function App() {
             transition={{ duration: 1, delay: 1.5 }}
             className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
           >
-            <motion.div
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              <ChevronDown className="w-8 h-8 text-white/60" />
-            </motion.div>
           </motion.div>
         </div>
       </section>
