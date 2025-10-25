@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { motion, useScroll, useTransform, useInView } from 'framer-motion';
-import vaspplogo from "./pictures/vaspp-peuqeno-logo.svg";
-import { 
-  Brain, 
-  TrendingUp, 
-  Shield, 
-  BarChart3, 
-  Users, 
-  Star, 
-  Check, 
+import React, { useEffect, useState } from "react";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import vaspplogo from "../assets/vaspplogo.png";
+import {
+  Brain,
+  TrendingUp,
+  Shield,
+  BarChart3,
+  Users,
+  Star,
+  Check,
   ArrowRight,
   Target,
   Database,
@@ -18,11 +18,17 @@ import {
   Cpu,
   Globe,
   Trophy,
-  ChevronDown
-} from 'lucide-react';
+  ChevronDown,
+} from "lucide-react";
 
 // Animated Section Component
-const AnimatedSection = ({ children, className = "" }: { children: React.ReactNode, className?: string }) => {
+const AnimatedSection = ({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) => {
   const ref = React.useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
@@ -40,18 +46,24 @@ const AnimatedSection = ({ children, className = "" }: { children: React.ReactNo
 };
 
 // Floating Animation Component
-const FloatingElement = ({ children, delay = 0 }: { children: React.ReactNode, delay?: number }) => {
+const FloatingElement = ({
+  children,
+  delay = 0,
+}: {
+  children: React.ReactNode;
+  delay?: number;
+}) => {
   return (
     <motion.div
-      animate={{ 
+      animate={{
         y: [0, -20, 0],
-        rotate: [0, 2, 0]
+        rotate: [0, 2, 0],
       }}
-      transition={{ 
+      transition={{
         duration: 4,
         repeat: Infinity,
         delay,
-        ease: "easeInOut"
+        ease: "easeInOut",
       }}
     >
       {children}
@@ -60,12 +72,20 @@ const FloatingElement = ({ children, delay = 0 }: { children: React.ReactNode, d
 };
 
 // Glowing Button Component
-const GlowButton = ({ children, onClick, className = "" }: { children: React.ReactNode, onClick?: () => void, className?: string }) => {
+const GlowButton = ({
+  children,
+  onClick,
+  className = "",
+}: {
+  children: React.ReactNode;
+  onClick?: () => void;
+  className?: string;
+}) => {
   return (
     <motion.button
-      whileHover={{ 
+      whileHover={{
         scale: 1.05,
-        boxShadow: "0 0 30px rgba(255, 255, 255, 0.5)"
+        boxShadow: "0 0 30px rgba(255, 255, 255, 0.5)",
       }}
       whileTap={{ scale: 0.95 }}
       className={`relative px-8 py-4 bg-transparent border-2 border-white text-white font-bold rounded-lg overflow-hidden group transition-all duration-300 ${className}`}
@@ -77,21 +97,21 @@ const GlowButton = ({ children, onClick, className = "" }: { children: React.Rea
   );
 };
 
-function App() {
+function LandingPage() {
   const { scrollYProgress } = useScroll();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   // Parallax effects
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
-  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '200%']);
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "200%"]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
   return (
@@ -149,9 +169,7 @@ function App() {
               FUTURO DOS
             </span>
             <br />
-            <span className="text-white drop-shadow-2xl">
-              RESULTADOS
-            </span>
+            <span className="text-white drop-shadow-2xl">RESULTADOS</span>
           </motion.h1>
 
           <motion.p
@@ -162,7 +180,9 @@ function App() {
           >
             Previsões inteligentes baseadas em dados reais
             <br />
-            <span className="text-lg text-white/60">Powered by IA • Futebol Brasileiro</span>
+            <span className="text-lg text-white/60">
+              Powered by IA • Futebol Brasileiro
+            </span>
           </motion.p>
 
           <motion.div
@@ -188,8 +208,7 @@ function App() {
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 1.5 }}
             className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
-          >
-          </motion.div>
+          ></motion.div>
         </div>
       </section>
 
@@ -214,7 +233,10 @@ function App() {
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="text-xl text-white/80 mb-8 leading-relaxed"
               >
-                Nossa plataforma utiliza inteligência artificial avançada integrada aos maiores bancos de dados do futebol brasileiro. Analisamos dados do Transfermarkt, Sofascore e OneFootball para gerar previsões precisas.
+                Nossa plataforma utiliza inteligência artificial avançada
+                integrada aos maiores bancos de dados do futebol brasileiro.
+                Analisamos dados do Transfermarkt, Sofascore e OneFootball para
+                gerar previsões precisas.
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
@@ -226,7 +248,7 @@ function App() {
                   "Machine Learning Avançado",
                   "Análise de Big Data",
                   "Previsões em Tempo Real",
-                  "Cobertura Completa do Brasileirão"
+                  "Cobertura Completa do Brasileirão",
                 ].map((item, index) => (
                   <div key={index} className="flex items-center space-x-3">
                     <div className="w-2 h-2 bg-white rounded-full"></div>
@@ -288,7 +310,8 @@ function App() {
               COMO FUNCIONA
             </h2>
             <p className="text-xl text-white/80 max-w-3xl mx-auto">
-              Processo automatizado que combina dados, análise e previsão para maximizar sua precisão
+              Processo automatizado que combina dados, análise e previsão para
+              maximizar sua precisão
             </p>
           </motion.div>
 
@@ -298,26 +321,26 @@ function App() {
                 icon: Database,
                 title: "COLETA",
                 description: "Dados em tempo real de fontes confiáveis",
-                step: "01"
+                step: "01",
               },
               {
                 icon: Cpu,
                 title: "PROCESSAMENTO",
                 description: "IA analisa padrões e estatísticas",
-                step: "02"
+                step: "02",
               },
               {
                 icon: Brain,
                 title: "PREVISÃO",
                 description: "Algoritmos geram probabilidades",
-                step: "03"
+                step: "03",
               },
               {
                 icon: Eye,
                 title: "RESULTADO",
                 description: "Análises prontas para decisão",
-                step: "04"
-              }
+                step: "04",
+              },
             ].map((item, index) => (
               <motion.div
                 key={index}
@@ -334,7 +357,9 @@ function App() {
                     <item.icon className="w-10 h-10 text-white" />
                   </div>
                 </FloatingElement>
-                <h3 className="text-2xl font-bold text-white mb-4">{item.title}</h3>
+                <h3 className="text-2xl font-bold text-white mb-4">
+                  {item.title}
+                </h3>
                 <p className="text-white/70">{item.description}</p>
               </motion.div>
             ))}
@@ -365,50 +390,62 @@ function App() {
                 match: "Flamengo vs Palmeiras",
                 prediction: "Vitória Flamengo",
                 confidence: "78%",
-                stats: { goals: "2.3", shots: "14", possession: "58%" }
+                stats: { goals: "2.3", shots: "14", possession: "58%" },
               },
               {
                 match: "São Paulo vs Corinthians",
                 prediction: "Empate",
                 confidence: "65%",
-                stats: { goals: "1.8", shots: "11", possession: "52%" }
+                stats: { goals: "1.8", shots: "11", possession: "52%" },
               },
               {
                 match: "Grêmio vs Internacional",
                 prediction: "Vitória Internacional",
                 confidence: "71%",
-                stats: { goals: "2.1", shots: "13", possession: "55%" }
-              }
+                stats: { goals: "2.1", shots: "13", possession: "55%" },
+              },
             ].map((match, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
-                whileHover={{ 
+                whileHover={{
                   scale: 1.05,
-                  boxShadow: "0 0 30px rgba(255, 255, 255, 0.1)"
+                  boxShadow: "0 0 30px rgba(255, 255, 255, 0.1)",
                 }}
                 className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/20 rounded-2xl p-6 cursor-pointer"
               >
                 <div className="text-center mb-6">
-                  <h3 className="text-xl font-bold text-white mb-2">{match.match}</h3>
-                  <div className="text-2xl font-black text-white mb-2">{match.prediction}</div>
-                  <div className="text-white/60">Confiança: {match.confidence}</div>
+                  <h3 className="text-xl font-bold text-white mb-2">
+                    {match.match}
+                  </h3>
+                  <div className="text-2xl font-black text-white mb-2">
+                    {match.prediction}
+                  </div>
+                  <div className="text-white/60">
+                    Confiança: {match.confidence}
+                  </div>
                 </div>
-                
+
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
                     <span className="text-white/70">Gols Esperados</span>
-                    <span className="text-white font-bold">{match.stats.goals}</span>
+                    <span className="text-white font-bold">
+                      {match.stats.goals}
+                    </span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-white/70">Finalizações</span>
-                    <span className="text-white font-bold">{match.stats.shots}</span>
+                    <span className="text-white font-bold">
+                      {match.stats.shots}
+                    </span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-white/70">Posse de Bola</span>
-                    <span className="text-white font-bold">{match.stats.possession}</span>
+                    <span className="text-white font-bold">
+                      {match.stats.possession}
+                    </span>
                   </div>
                 </div>
               </motion.div>
@@ -443,9 +480,9 @@ function App() {
                   "Previsões gerais de resultados",
                   "Séries A, B, C e D",
                   "Suporte por email",
-                  "Análises básicas"
+                  "Análises básicas",
                 ],
-                popular: false
+                popular: false,
               },
               {
                 name: "PROFISSIONAL",
@@ -455,9 +492,9 @@ function App() {
                   "Análises detalhadas por equipe",
                   "Estatísticas individuais",
                   "Gols esperados e finalizações",
-                  "Relatórios avançados"
+                  "Relatórios avançados",
                 ],
-                popular: true
+                popular: true,
               },
               {
                 name: "PREMIUM",
@@ -468,22 +505,24 @@ function App() {
                   "Alertas em tempo real",
                   "Suporte prioritário",
                   "Relatórios comparativos",
-                  "API de acesso"
+                  "API de acesso",
                 ],
-                popular: false
-              }
+                popular: false,
+              },
             ].map((plan, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
-                whileHover={{ 
+                whileHover={{
                   scale: 1.05,
-                  boxShadow: plan.popular ? "0 0 50px rgba(255, 255, 255, 0.2)" : "0 0 30px rgba(255, 255, 255, 0.1)"
+                  boxShadow: plan.popular
+                    ? "0 0 50px rgba(255, 255, 255, 0.2)"
+                    : "0 0 30px rgba(255, 255, 255, 0.1)",
                 }}
                 className={`relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border rounded-2xl p-8 ${
-                  plan.popular ? 'border-white/40' : 'border-white/20'
+                  plan.popular ? "border-white/40" : "border-white/20"
                 }`}
               >
                 {plan.popular && (
@@ -493,12 +532,16 @@ function App() {
                     </span>
                   </div>
                 )}
-                
+
                 <div className="text-center mb-8">
-                  <h3 className="text-2xl font-black text-white mb-4">{plan.name}</h3>
+                  <h3 className="text-2xl font-black text-white mb-4">
+                    {plan.name}
+                  </h3>
                   <div className="text-4xl font-black text-white mb-2">
                     R$ {plan.price}
-                    <span className="text-lg text-white/60 font-normal">/mês</span>
+                    <span className="text-lg text-white/60 font-normal">
+                      /mês
+                    </span>
                   </div>
                 </div>
 
@@ -511,9 +554,7 @@ function App() {
                   ))}
                 </ul>
 
-                <GlowButton className="w-full">
-                  COMEÇAR AGORA
-                </GlowButton>
+                <GlowButton className="w-full">COMEÇAR AGORA</GlowButton>
               </motion.div>
             ))}
           </div>
@@ -543,20 +584,20 @@ function App() {
                 name: "Carlos Silva",
                 role: "Apostador Profissional",
                 text: "Minha precisão aumentou 40% desde que comecei a usar o VASPP. As análises são incríveis!",
-                rating: 5
+                rating: 5,
               },
               {
                 name: "Ana Santos",
                 role: "Analista Esportiva",
                 text: "A plataforma mais completa para análise do futebol brasileiro. Dados precisos e interface intuitiva.",
-                rating: 5
+                rating: 5,
               },
               {
                 name: "Roberto Lima",
                 role: "Investidor Esportivo",
                 text: "ROI consistente mês após mês. O VASPP transformou minha abordagem nas apostas esportivas.",
-                rating: 5
-              }
+                rating: 5,
+              },
             ].map((testimonial, index) => (
               <motion.div
                 key={index}
@@ -570,14 +611,20 @@ function App() {
                     <Star key={i} className="w-5 h-5 text-white fill-current" />
                   ))}
                 </div>
-                <p className="text-white/90 mb-6 italic">"{testimonial.text}"</p>
+                <p className="text-white/90 mb-6 italic">
+                  "{testimonial.text}"
+                </p>
                 <div className="flex items-center">
                   <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mr-4">
                     <Users className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <div className="text-white font-bold">{testimonial.name}</div>
-                    <div className="text-white/60 text-sm">{testimonial.role}</div>
+                    <div className="text-white font-bold">
+                      {testimonial.name}
+                    </div>
+                    <div className="text-white/60 text-sm">
+                      {testimonial.role}
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -602,9 +649,10 @@ function App() {
               </span>
             </h2>
             <p className="text-2xl text-white/80 mb-12">
-              Junte-se a milhares de apostadores que já melhoraram seus resultados
+              Junte-se a milhares de apostadores que já melhoraram seus
+              resultados
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
               <GlowButton className="text-2xl px-16 py-8">
                 COMEÇAR AGORA
@@ -642,4 +690,4 @@ function App() {
   );
 }
 
-export default App;
+export default LandingPage;
