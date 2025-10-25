@@ -20,7 +20,7 @@ function Login() {
 
         <div className="mt-12 w-auto h-auto flex flex-col gap-4 items-center">
           <InputTransparent placeholder="nome@gmail.com" className="w-[45vh]" />
-          <BlueButton type="submit" className="w-[45vh]" children="ENVIAR" />
+          <BlueButton type="submit" className="w-[45vh]" children="ENTRAR" />
 
           <div className="w-[45vh] h-auto flex justify-center items-center gap-2 text-white">
             <hr className="w-full" />
@@ -28,7 +28,7 @@ function Login() {
             <hr className="w-full" />
           </div>
 
-          <div className="w-[45vh] h-auto gap-4 flex items-center">
+          <div className="w-[45vh] h-auto gap-5 flex items-center">
             <div className="w-full h-auto p-2 rounded-md bg-white flex justify-center items-center cursor-pointer hover:bg-slate-300 transition-colors duration-200">
               <img src={google} alt="google" className="w-[3vh]" />
             </div>
