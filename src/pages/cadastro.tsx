@@ -22,7 +22,11 @@ function Cadastro() {
           <InputTransparent placeholder="Apelido" className="w-[45vh]" />
           <InputTransparent placeholder="nome@gmail.com" className="w-[45vh]" />
           <InputTransparent placeholder="Senha" className="w-[45vh]" />
-          <BlueButton type="submit" className="w-[45vh]" children="CRIAR CONTA" />
+          <BlueButton
+            type="submit"
+            className="w-[45vh]"
+            children="CRIAR CONTA"
+          />
 
           <div className="w-[45vh] h-auto flex justify-center items-center gap-2 text-white">
             <hr className="w-full" />
