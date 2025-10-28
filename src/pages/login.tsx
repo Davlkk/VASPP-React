@@ -20,7 +20,9 @@ function Login() {
 
         <div className="mt-12 w-auto h-auto flex flex-col gap-4 items-center">
           <InputTransparent placeholder="nome@gmail.com" className="w-[45vh]" />
-          <BlueButton type="submit" className="w-[45vh]" children="ENTRAR" />
+          <a href="/home">
+            <BlueButton type="submit" className="w-[45vh]" children="ENTRAR" />
+          </a>
 
           <div className="w-[45vh] h-auto flex justify-center items-center gap-2 text-white">
             <hr className="w-full" />
@@ -38,7 +40,12 @@ function Login() {
           </div>
 
           <div>
-            <p>Não tem uma conta? <a href="/cadastro" className="text-[#4665FF]">Cadastre-se</a></p>
+            <p>
+              Não tem uma conta?{" "}
+              <a href="/cadastro" className="text-[#4665FF]">
+                Cadastre-se
+              </a>
+            </p>
           </div>
         </div>
       </div>
