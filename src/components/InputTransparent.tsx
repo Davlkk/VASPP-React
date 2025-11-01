@@ -4,7 +4,7 @@ interface InputTransparentProps {
   placeholder?: string;
   value?: string;
   className?: string;
-}56
+}
 
 function InputTransparent({
   type,
