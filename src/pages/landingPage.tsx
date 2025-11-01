@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import vaspplogo from "../assets/vaspplogo.png";
+import vaspplogo from "../pictures/vaspp-logo.svg";
 import {
   Brain,
   TrendingUp,
@@ -20,6 +20,7 @@ import {
   Trophy,
   ChevronDown,
 } from "lucide-react";
+import Background from "../components/Background";
 
 // Animated Section Component
 const AnimatedSection = ({
@@ -115,33 +116,7 @@ function LandingPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#020074] text-white overflow-x-hidden relative">
-      {/* Animated Background */}
-      <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#000000] via-[#020074] to-[#04004b]"></div>
-        <div className="absolute inset-0 opacity-20">
-          {[...Array(50)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-1 h-1 bg-white rounded-full"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-              }}
-              animate={{
-                opacity: [0, 1, 0],
-                scale: [0, 1, 0],
-              }}
-              transition={{
-                duration: Math.random() * 3 + 2,
-                repeat: Infinity,
-                delay: Math.random() * 2,
-              }}
-            />
-          ))}
-        </div>
-      </div>
-
+    <Background>
       {/* Mouse Follower */}
       <motion.div
         className="fixed w-6 h-6 bg-white/20 rounded-full pointer-events-none z-50 mix-blend-difference"
@@ -191,10 +166,13 @@ function LandingPage() {
             transition={{ duration: 1, delay: 0.9 }}
             className="flex flex-col sm:flex-row gap-6 justify-center items-center"
           >
-            <GlowButton className="text-xl px-12 py-6">
-              VER PREVISÕES
-              <ArrowRight className="inline ml-3 w-6 h-6" />
-            </GlowButton>
+            <a href="/cadastro">
+              <GlowButton className="text-xl px-12 py-6">
+                VER PREVISÕES
+                <ArrowRight className="inline ml-3 w-6 h-6" />
+              </GlowButton>
+            </a>
+
             <motion.button
               whileHover={{ scale: 1.05 }}
               className="text-white/80 hover:text-white transition-colors text-lg font-medium"
@@ -654,10 +632,12 @@ function LandingPage() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
-              <GlowButton className="text-2xl px-16 py-8">
-                COMEÇAR AGORA
-                <ArrowRight className="inline ml-4 w-8 h-8" />
-              </GlowButton>
+              <a href="/cadastro">
+                <GlowButton className="text-2xl px-16 py-8">
+                  COMEÇAR AGORA
+                  <ArrowRight className="inline ml-4 w-8 h-8" />
+                </GlowButton>
+              </a>
             </div>
 
             <div className="text-white/60 text-lg">
@@ -672,21 +652,21 @@ function LandingPage() {
         <div className="container mx-auto max-w-6xl">
           <div className="text-center">
             <div className="flex items-center justify-center space-x-3 mb-6">
-              <div className="w-10 h-10 bg-gradient-to-br from-white/20 to-white/5 rounded-lg flex items-center justify-center">
-                <Brain className="w-6 h-6 text-white" />
+              <div className="w-auto h-auto flex items-center justify-center">
+                <img
+                  src={vaspplogo}
+                  alt="VASPP Logo"
+                  className="w-[40vw] md:w-[20vw] lg:w-[5vw] h-auto"
+                />
               </div>
-              <span className="text-3xl font-black text-white">VASPP</span>
             </div>
-            <p className="text-white/60 mb-4">
-              Previsões de futebol powered by IA
-            </p>
             <p className="text-white/40 text-sm">
-              © 2025 VASPP. Todos os direitos reservados. • Pindamonhangaba, SP
+              © 2025 VASPP. Todos os direitos reservados. • parobé, RS
             </p>
           </div>
         </div>
       </footer>
-    </div>
+    </Background>
   );
 }
 
