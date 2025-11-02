@@ -1,3 +1,4 @@
+
 import { ChevronRight } from "lucide-react";
 import { Match } from "../types/match";
 
@@ -47,14 +48,14 @@ function MatchesTable({ matches, onMatchClick }: MatchesTableProps) {
                       {match.homeTeam}
                     </span>
                     <div className="w-auto h-auto bg-black/40 flex items-center justify-center px-2 py-1">
-                      {match.homeScore !== null && (
+                      {/* --- LÓGICA CORRIGIDA --- */}
+                      {match.homeScore !== null ? (
                         <span className="text-2xl font-bold text-white">
                           {match.homeScore}
                         </span>
-                      )}
-                      {match.awayScore == null && (
+                      ) : (
                         <span className="w-[0.5vw] h-[3vh]">
-                          {match.awayScore}
+                          {/* Placeholder para placar nulo */}
                         </span>
                       )}
                     </div>
@@ -65,15 +66,14 @@ function MatchesTable({ matches, onMatchClick }: MatchesTableProps) {
                     </span>
 
                     <div className="w-auto h-auto bg-black/40 flex items-center justify-center px-2 py-1">
-                      {match.awayScore !== null && (
+                      {/* --- LÓGICA CORRIGIDA --- */}
+                      {match.awayScore !== null ? (
                         <span className="text-2xl font-bold text-white">
                           {match.awayScore}
                         </span>
-                      )}
-
-                      {match.awayScore == null && (
+                      ) : (
                         <span className="w-[0.5vw] h-[3vh]">
-                          {match.awayScore}
+                          {/* Placeholder para placar nulo */}
                         </span>
                       )}
                     </div>
