@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import vaspplogo from "../pictures/vaspp-peuqeno-logo.svg";
 import {
   Brain,
   TrendingUp,
@@ -532,8 +531,9 @@ function LandingPage() {
                     </li>
                   ))}
                 </ul>
-
-                <GlowButton className="w-full">COMEÇAR AGORA</GlowButton>
+                
+                <a href="/planos"><GlowButton className="w-full">COMEÇAR AGORA</GlowButton></a>
+                
               </motion.div>
             ))}
           </div>
