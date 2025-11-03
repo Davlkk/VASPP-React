@@ -19,8 +19,6 @@ export interface Match {
   serie: 'A' | 'B' | 'C' | 'D';
   homeLineup?: Lineup;
   awayLineup?: Lineup;
-  stats?: MatchStats;
-  predictedStats?: MatchStats;
   periodStats?: PeriodData; // Dados reais por período
   predictedPeriodStats?: PeriodData; // Previsões por período
 }
@@ -28,7 +26,7 @@ export interface Match {
 export interface Player {
   id: number;
   name: string;
-  position: { x: number; y: number }; // Posição no campo (0-100%)
+  position: { x: number; y: number };
   number: number;
   goals?: number;
   assists?: number;
