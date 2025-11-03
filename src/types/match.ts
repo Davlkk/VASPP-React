@@ -1,46 +1,4 @@
-export interface PeriodData {
-  firstHalf: MatchStats;
-  secondHalf: MatchStats;
-  full: MatchStats;
-}
-
-export interface Match {
-  id: number;
-  date: string;
-  time: string;
-  homeTeam: string;
-  awayTeam: string;
-  homeScore: number | null;
-  awayScore: number | null;
-  isFinished: boolean;
-  predictedWinner: string;
-  predictedHomeScore: number;
-  predictedAwayScore: number;
-  serie: 'A' | 'B' | 'C' | 'D';
-  homeLineup?: Lineup;
-  awayLineup?: Lineup;
-  periodStats?: PeriodData; // Dados reais por período
-  predictedPeriodStats?: PeriodData; // Previsões por período
-}
-
-export interface Player {
-  id: number;
-  name: string;
-  position: { x: number; y: number };
-  number: number;
-  goals?: number;
-  assists?: number;
-  isMVP?: boolean; // "Mito"
-  isFlop?: boolean; // "Zika"
-  yellowCards?: number;
-  redCards?: number;
-}
-
-export interface Lineup {
-  formation: string; // Ex: "4-3-3"
-  players: Player[];
-}
-
+// Define a aparência das estatísticas
 export interface MatchStats {
   possession: { home: number; away: number };
   bigChances: { home: number; away: number };
@@ -56,8 +14,53 @@ export interface MatchStats {
   redCards: { home: number; away: number };
 }
 
-export interface PeriodStats {
-  firstHalf: MatchStats;
-  secondHalf: MatchStats;
-  full: MatchStats;
+// Define os 3 períodos, permitindo que sejam nulos
+export interface PeriodData {
+  firstHalf: MatchStats | null;
+  secondHalf: MatchStats | null;
+  full: MatchStats | null;
+}
+
+// Define o jogador (usado no MatchField)
+export interface Player {
+  id: number;
+  name: string;
+  position: { x: number; y: number };
+  number: number;
+  goals?: number;
+  assists?: number;
+  isMVP?: boolean;
+  isFlop?: boolean;
+  yellowCards?: number;
+  redCards?: number;
+}
+
+// Define a escalação (usado no MatchField)
+export interface Lineup {
+  formation: string;
+  players: Player[];
+}
+
+// O objeto principal da Partida
+export interface Match {
+  id: number;
+  date: string;
+  time: string;
+  homeTeam: string;
+  awayTeam: string;
+  homeScore: number | null;
+  awayScore: number | null;
+  isFinished: boolean;
+  serie: 'A' | 'B' | 'C' | 'D';
+  
+  // Dados Reais (virão da API)
+  homeLineup?: Lineup;
+  awayLineup?: Lineup;
+  periodStats?: PeriodData;
+
+  // Dados de Previsão (virão do seu mockMatches.ts)
+  predictedWinner: string;
+  predictedHomeScore: number;
+  predictedAwayScore: number;
+  predictedPeriodStats?: PeriodData;
 }
