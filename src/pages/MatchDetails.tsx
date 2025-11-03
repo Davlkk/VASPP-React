@@ -11,6 +11,7 @@ import NoDataAvailable from "../components/NoDataAvailable";
 import { mockMatches } from "../data/mockMatches";
 import { Match } from "../types/match";
 import Header from "../components/Header";
+import FooterBG from "../components/FooterBG";
 
 function MatchDetails() {
   const { id } = useParams<{ id: string }>();
@@ -180,6 +181,8 @@ function MatchDetails() {
           </div>
         </div>
       </div>
+
+      <FooterBG classname="mt-[10vh]"/>
     </Background>
   );
 }

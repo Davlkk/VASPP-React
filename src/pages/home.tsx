@@ -1,4 +1,3 @@
-// src/pages/home.tsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
@@ -7,6 +6,7 @@ import MatchesTable from "../components/MatchesTable";
 import { mockMatches } from "../data/mockMatches";
 import Background from "../components/Background";
 import Header from "../components/Header";
+import FooterBG from "../components/FooterBG";
 
 function Home() {
   const navigate = useNavigate();
@@ -67,6 +67,7 @@ function Home() {
           Mostrando {filteredMatches.length} de {mockMatches.length} jogos
         </div>
       </div>
+      <FooterBG classname="mt-[10vh]"/>
     </Background>
   );
 }
