@@ -53,8 +53,9 @@ function MatchDetails() {
             return match.predictedPeriodStats.full;
         }
       }
-      return match.predictedStats;
-    } else {
+      return match.predictedPeriodStats;
+    } 
+    else {
       if (match.periodStats) {
         switch (selectedPeriod) {
           case "1º":
@@ -65,7 +66,7 @@ function MatchDetails() {
             return match.periodStats.full;
         }
       }
-      return match.stats;
+      return match.periodStats;
     }
   };
   const stats = getStats();
@@ -74,10 +75,9 @@ function MatchDetails() {
   return (
     <Background>
       <div className="min-h-screen">
-        <Header/>
-      
+        <Header />
+
         <div className="max-w-7xl mx-auto px-6 py-8">
-          {/* Header com Toggle */}
           <div className="flex justify-center mb-8">
             <DataToggle isAI={isAI} onToggle={setIsAI} />
           </div>
