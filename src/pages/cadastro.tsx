@@ -4,6 +4,7 @@ import InputTransparent from "../components/InputTransparent";
 import vaspp from "../pictures/vaspp-logo.svg";
 import facebook from "../pictures/facebook.png";
 import google from "../pictures/google.png";
+import FooterBG from "../components/FooterBG";
 
 function Cadastro() {
   return (
@@ -53,6 +54,8 @@ function Cadastro() {
           </div>
         </div>
       </div>
+
+      <FooterBG classname="mt-[10vh]"/>
     </Background>
   );
 }

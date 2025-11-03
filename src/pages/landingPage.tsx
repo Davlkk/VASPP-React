@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import vaspplogo from "../pictures/vaspp-logo.svg";
+import vaspplogo from "../pictures/vaspp-peuqeno-logo.svg";
 import {
   Brain,
   TrendingUp,
@@ -21,6 +21,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import Background from "../components/Background";
+import FooterBG from "../components/FooterBG";
 
 // Animated Section Component
 const AnimatedSection = ({
@@ -648,24 +649,7 @@ function LandingPage() {
       </AnimatedSection>
 
       {/* Footer */}
-      <footer className="py-16 px-4 border-t border-white/10">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center">
-            <div className="flex items-center justify-center space-x-3 mb-6">
-              <div className="w-auto h-auto flex items-center justify-center">
-                <img
-                  src={vaspplogo}
-                  alt="VASPP Logo"
-                  className="w-[40vw] md:w-[20vw] lg:w-[5vw] h-auto"
-                />
-              </div>
-            </div>
-            <p className="text-white/40 text-sm">
-              © 2025 VASPP. Todos os direitos reservados. • parobé, RS
-            </p>
-          </div>
-        </div>
-      </footer>
+      <FooterBG/>
     </Background>
   );
 }
