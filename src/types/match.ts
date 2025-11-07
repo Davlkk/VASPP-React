@@ -1,3 +1,5 @@
+// src/types/match.ts
+
 // Define a aparência das estatísticas
 export interface MatchStats {
   possession: { home: number; away: number };
@@ -21,7 +23,7 @@ export interface PeriodData {
   full: MatchStats | null;
 }
 
-// Define o jogador (usado no MatchField)
+// Define o jogador
 export interface Player {
   id: number;
   name: string;
@@ -33,12 +35,15 @@ export interface Player {
   isFlop?: boolean;
   yellowCards?: number;
   redCards?: number;
+  // --- NOVO CAMPO ---
+  substitutedPlayerName?: string; // Nome do jogador que ele substituiu
 }
 
-// Define a escalação (usado no MatchField)
+// Define a escalação
 export interface Lineup {
   formation: string;
-  players: Player[];
+  starters: Player[];
+  substitutes: Player[];
 }
 
 // O objeto principal da Partida
@@ -53,12 +58,10 @@ export interface Match {
   isFinished: boolean;
   serie: 'A' | 'B' | 'C' | 'D';
   
-  // Dados Reais (virão da API)
   homeLineup?: Lineup;
   awayLineup?: Lineup;
   periodStats?: PeriodData;
 
-  // Dados de Previsão (virão do seu mockMatches.ts)
   predictedWinner: string;
   predictedHomeScore: number;
   predictedAwayScore: number;

@@ -4,103 +4,43 @@ function generateFullStats(
   h1: MatchStats,
   h2: MatchStats
 ): MatchStats {
-  // Criamos um novo objeto de stats para não modificar os originais
   const full = JSON.parse(JSON.stringify(h1));
-
-  // percorre as chaves do match.ts
   (Object.keys(full) as Array<keyof MatchStats>).forEach((key) => {
-    // ignora item que não pode ser somado
-    if (key === 'possession') {
-      return;
-    }
-
-    // Soma os valores do segundo tempo
-    full[key].home = h1[key].home + h2[key].home;
-    full[key].away = h1[key].away + h2[key].away;
+  	if (key === 'possession') {
+    	return;
+  	}
+  	full[key].home = h1[key].home + h2[key].home;
+  	full[key].away = h1[key].away + h2[key].away;
   });
-
   return full;
 }
 
-// mocka os periodos de uma partida
-// -- 1º tempo --
 const match1_real_h1: MatchStats = {
-  possession: { home: 40, away: 60 },
-  bigChances: { home: 1, away: 1 },
-  shots: { home: 3, away: 10 },
-  shotsOnTarget: { home: 1, away: 4 },
-  saves: { home: 2, away: 1 },
-  corners: { home: 4, away: 2 },
-  fouls: { home: 5, away: 2 },
-  passes: { home: 200, away: 150 },
-  tackles: { home: 4, away: 8 },
-  freeKicks: { home: 2, away: 6 },
-  yellowCards: { home: 0, away: 1 },
-  redCards: { home: 0, away: 0 }
+  possession: { home: 40, away: 60 }, bigChances: { home: 1, away: 1 }, shots: { home: 3, away: 10 }, shotsOnTarget: { home: 1, away: 4 }, saves: { home: 2, away: 1 }, corners: { home: 4, away: 2 }, fouls: { home: 5, away: 2 }, passes: { home: 200, away: 150 }, tackles: { home: 4, away: 8 }, freeKicks: { home: 2, away: 6 }, yellowCards: { home: 0, away: 1 }, redCards: { home: 0, away: 0 }
 };
-// -- 2º tempo --
 const match1_real_h2: MatchStats = {
-  possession: { home: 32, away: 68 },
-  bigChances: { home: 3, away: 1 },
-  shots: { home: 5, away: 13 },
-  shotsOnTarget: { home: 2, away: 5 },
-  saves: { home: 1, away: 4 },
-  corners: { home: 5, away: 2 },
-  fouls: { home: 6, away: 3 },
-  passes: { home: 267, away: 217 },
-  tackles: { home: 6, away: 12 },
-  freeKicks: { home: 3, away: 7 },
-  yellowCards: { home: 0, away: 1 },
-  redCards: { home: 1, away: 0 }
+  possession: { home: 32, away: 68 }, bigChances: { home: 3, away: 1 }, shots: { home: 5, away: 13 }, shotsOnTarget: { home: 2, away: 5 }, saves: { home: 1, away: 4 }, corners: { home: 5, away: 2 }, fouls: { home: 6, away: 3 }, passes: { home: 267, away: 217 }, tackles: { home: 6, away: 12 }, freeKicks: { home: 3, away: 7 }, yellowCards: { home: 0, away: 1 }, redCards: { home: 1, away: 0 }
 };
-
-// --- Dados Previstos (IA) da Partida 1 ---
-// -- 1º tempo --
 const match1_pred_h1: MatchStats = {
-  possession: { home: 45, away: 55 },
-  bigChances: { home: 1, away: 2 },
-  shots: { home: 6, away: 7 },
-  shotsOnTarget: { home: 2, away: 3 },
-  saves: { home: 2, away: 1 },
-  corners: { home: 3, away: 2 },
-  fouls: { home: 5, away: 4 },
-  passes: { home: 200, away: 220 },
-  tackles: { home: 7, away: 8 },
-  freeKicks: { home: 4, away: 5 },
-  yellowCards: { home: 1, away: 0 },
-  redCards: { home: 0, away: 0 }
+  possession: { home: 45, away: 55 }, bigChances: { home: 1, away: 2 }, shots: { home: 6, away: 7 }, shotsOnTarget: { home: 2, away: 3 }, saves: { home: 2, away: 1 }, corners: { home: 3, away: 2 }, fouls: { home: 5, away: 4 }, passes: { home: 200, away: 220 }, tackles: { home: 7, away: 8 }, freeKicks: { home: 4, away: 5 }, yellowCards: { home: 1, away: 0 }, redCards: { home: 0, away: 0 }
 };
-// -- 2º tempo --
 const match1_pred_h2: MatchStats = {
-  possession: { home: 45, away: 55 },
-  bigChances: { home: 2, away: 2 },
-  shots: { home: 6, away: 8 },
-  shotsOnTarget: { home: 3, away: 4 },
-  saves: { home: 2, away: 2 },
-  corners: { home: 3, away: 3 },
-  fouls: { home: 5, away: 4 },
-  passes: { home: 200, away: 230 },
-  tackles: { home: 8, away: 10 },
-  freeKicks: { home: 4, away: 5 },
-  yellowCards: { home: 1, away: 1 },
-  redCards: { home: 0, away: 0 }
+  possession: { home: 45, away: 55 }, bigChances: { home: 2, away: 2 }, shots: { home: 6, away: 8 }, shotsOnTarget: { home: 3, away: 4 }, saves: { home: 2, away: 2 }, corners: { home: 3, away: 3 }, fouls: { home: 5, away: 4 }, passes: { home: 200, away: 230 }, tackles: { home: 8, away: 10 }, freeKicks: { home: 4, away: 5 }, yellowCards: { home: 1, away: 1 }, redCards: { home: 0, away: 0 }
 };
 
 const match1_pred_full = generateFullStats(match1_pred_h1, match1_pred_h2);
 const match1_real_full = generateFullStats(match1_real_h1, match1_real_h2);
 
-// *** CORREÇÃO IMPORTANTE ***
-// A posse de bola não é somada, então definimos a média aqui
 match1_pred_full.possession = { home: 45, away: 55 };
-match1_real_full.possession = { home: 36, away: 64 }; // Média dos dois tempos
+match1_real_full.possession = { home: 36, away: 64 };
 
 export const mockMatches: Match[] = [
   {
-    id: 1, // ID interno do mock (não usado pela API)
+    id: 1,
     date: '19/07',
     time: '16:00',
-    homeTeam: 'Fluminense', // <-- NOME DEVE BATER COM A API
-    awayTeam: 'Cruzeiro',   // <-- NOME DEVE BATER COM A API
+    homeTeam: 'Fluminense',
+    awayTeam: 'Cruzeiro',
     homeScore: 0,
     awayScore: 3,
     isFinished: true,
@@ -108,9 +48,9 @@ export const mockMatches: Match[] = [
     predictedHomeScore: 0,
     predictedAwayScore: 3,
     serie: 'A',
-    homeLineup: { // <-- Usado pela aba "Previsão AI"
+    homeLineup: {
       formation: '4-3-3',
-      players: [
+      starters: [
         { id: 1, name: 'Fábio', position: { x: 50, y: 95 }, number: 1 },
         { id: 2, name: 'Samuel Xavier', position: { x: 85, y: 80 }, number: 2, yellowCards: 1 }, 
         { id: 3, name: 'Nino', position: { x: 65, y: 85 }, number: 3, redCards: 1 },
@@ -122,11 +62,18 @@ export const mockMatches: Match[] = [
         { id: 9, name: 'Arias', position: { x: 85, y: 60 }, number: 9, yellowCards: 1 },
         { id: 10, name: 'Keno', position: { x: 15, y: 60 }, number: 10 },
         { id: 11, name: 'Germán Cano', position: { x: 50, y: 55 }, number: 11 }
-      ]
+      ],
+      substitutes: [ // <-- MUDANÇA: 5 reservas + dados de substituição
+        { id: 30, name: 'J. Kennedy (IA)', position: { x: 0, y: 0 }, number: 99, substitutedPlayerName: 'Germán Cano' },
+        { id: 31, name: 'Felipe Melo (IA)', position: { x: 0, y: 0 }, number: 33, substitutedPlayerName: 'Ganso' },
+        { id: 32, name: 'Lima (IA)', position: { x: 0, y: 0 }, number: 45 },
+        { id: 33, name: 'Marlon (IA)', position: { x: 0, y: 0 }, number: 30 },
+        { id: 34, name: 'Alexsander (IA)', position: { x: 0, y: 0 }, number: 5 }
+      ]
     },
-    awayLineup: { // <-- Usado pela aba "Previsão AI"
+    awayLineup: {
       formation: '4-3-3',
-      players: [
+      starters: [
         { id: 12, name: 'Cássio', position: { x: 50, y: 5 }, number: 1 },
         { id: 13, name: 'William', position: { x: 15, y: 20 }, number: 2 },
         { id: 14, name: 'Zé Ivaldo', position: { x: 35, y: 15 }, number: 3 },
@@ -138,14 +85,21 @@ export const mockMatches: Match[] = [
         { id: 20, name: 'Gabriel Veron', position: { x: 50, y: 45 }, number: 9 },
         { id: 21, name: 'Dinenno', position: { x: 20, y: 40 }, number: 10 },
         { id: 22, name: 'Arthur Gomes', position: { x: 85, y: 40 }, number: 11 }
-      ]
+      ],
+      substitutes: [ // <-- MUDANÇA: 5 reservas + dados de substituição
+        { id: 40, name: 'Rafa Silva (IA)', position: { x: 0, y: 0 }, number: 88, substitutedPlayerName: 'Matheus Pereira' },
+        { id: 41, name: 'Lucas Silva (IA)', position: { x: 0, y: 0 }, number: 16 },
+        { id: 42, name: 'R. Villalba (IA)', position: { x: 0, y: 0 }, number: 26 },
+        { id: 43, name: 'Mateus Vital (IA)', position: { x: 0, y: 0 }, number: 7 },
+        { id: 44, name: 'Álvaro B. (IA)', position: { x: 0, y: 0 }, number: 33 }
+      ]
     },
-    periodStats: { // <-- Ignorado (Virá da API)
+    periodStats: {
       firstHalf: match1_real_h1,
       secondHalf: match1_real_h2,
       full: match1_real_full
     },
-    predictedPeriodStats: { // <-- Usado para aba "Previsão AI"
+    predictedPeriodStats: {
       firstHalf: match1_pred_h1,
       secondHalf: match1_pred_h2,
       full: match1_pred_full
@@ -155,8 +109,8 @@ export const mockMatches: Match[] = [
     id: 2,
     date: '19/07',
     time: '17:30',
-    homeTeam: 'Vasco', // <-- Nome deve bater com a API
-    awayTeam: 'Grêmio', // <-- Nome deve bater com a API
+    homeTeam: 'Vasco',
+    awayTeam: 'Grêmio',
     homeScore: 2,
     awayScore: 2,
     isFinished: true,
@@ -169,8 +123,8 @@ export const mockMatches: Match[] = [
     id: 3,
     date: '19/07',
     time: '17:30',
-    homeTeam: 'Coritiba', // <-- Nome deve bater com a API
-    awayTeam: 'Goias',    // <-- Nome deve bater com a API
+    homeTeam: 'Coritiba',
+    awayTeam: 'Goias',
     homeScore: 2,
     awayScore: 2,
     isFinished: true,

@@ -4,7 +4,6 @@ import Header from "../components/Header";
 import FooterBG from "../components/FooterBG";
 import PlanCard from "../components/PlanCard";
 
-// Estrutura de dados para os planos (sem alteração)
 const plansData = [
   {
     name: "BÁSICO",
@@ -26,7 +25,7 @@ const plansData = [
       "Estatísticas individuais",
       "Relatórios avançados",
     ],
-    highlight: true,
+    highlight: false,
   },
   {
     name: "PREMIUM",
