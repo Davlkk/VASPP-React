@@ -32,8 +32,8 @@ export interface Player {
   yellowCards?: number;
   redCards?: number;
   
-  wasSubstituted?: boolean; // Para o titular que saiu
-  substitutedInFor?: string; // Para o reserva (nome de quem saiu)
+  wasSubstituted?: boolean; 
+  substitutedInFor?: string;
 }
 
 // Define a escalação

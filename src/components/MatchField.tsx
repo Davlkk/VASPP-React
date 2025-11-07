@@ -1,7 +1,7 @@
 import { Player } from "../types/match";
 import gol from "../pictures/gol.svg";
 import ppg from "../pictures/chuteira.png";
-import { ArrowUpCircle, ArrowDownCircle } from 'lucide-react'; // Importar ícones
+import { ArrowUpCircle, ArrowDownCircle } from 'lucide-react'; 
 
 interface MatchFieldProps {
   homeTeam: string;
@@ -16,7 +16,6 @@ interface MatchFieldProps {
   awayFormation: string;
 }
 
-// --- NOVO SUB-COMPONENTE REUTILIZÁVEL ---
 // Isto mostra os ícones de Gol, Assistência e Cartões
 const PlayerEventIcons = ({ player }: { player: Player }) => {
   return (
@@ -34,7 +33,6 @@ const PlayerEventIcons = ({ player }: { player: Player }) => {
     </div>
   );
 };
-// ----------------------------------------
 
 const EventIcon = ({ count, iconType }: { count: number; iconType: "goal" | "assist"; }) => {
   const bgColor = iconType === "goal" ? "bg-white" : "bg-gray-400";
@@ -74,7 +72,6 @@ const CardIcon = ({ yellowCards = 0, redCards = 0 }: { yellowCards?: number; red
   return null;
 };
 
-// --- Lista de Reservas (Atualizada com Eventos) ---
 const SubstituteList = ({ title, players }: { title: string, players: Player[] }) => (
   <div className="bg-black/20 p-4 rounded-lg">
     <h4 className="text-white/60 font-semibold mb-3 text-sm">{title}</h4>
@@ -92,7 +89,7 @@ const SubstituteList = ({ title, players }: { title: string, players: Player[] }
                   <PlayerEventIcons player={player} />
                 </div>
                 <div className="flex items-center gap-2 text-white/60 pl-1">
-                  <span className="w-4 h-4"></span> {/* Espaçador */}
+                  <span className="w-4 h-4"></span>
                   <span className="text-xs italic">(entrou no lugar de {player.substitutedInFor})</span>
                 </div>
               </div>
@@ -130,7 +127,7 @@ function MatchField({
   awayFormation,
 }: MatchFieldProps) {
 
-  // --- renderPlayer (Atualizado com Seta de Substituição) ---
+
   const renderPlayer = (player: Player, isHome: boolean) => {
     let circleClassName = "bg-white/90 border-[3px] border-white/30";
     if (player.isMVP) {
@@ -148,7 +145,6 @@ function MatchField({
           top: `${player.position.x}%`,
         }}
       >
-        {/* Mostra os ícones de eventos (Gols, Cartões, etc.) */}
         <div className="absolute -top-7 left-1/2 transform -translate-x-1/2 flex gap-1 z-20">
           <PlayerEventIcons player={player} />
         </div>
@@ -160,13 +156,11 @@ function MatchField({
             {player.number}
           </span>
 
-          {/* --- NOVO: Ícone de Substituição (Saiu) --- */}
           {player.wasSubstituted && (
-            <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-red-600 rounded-full flex items-center justify-center border-2 border-white" title={`Substituído por ${player.name}`}>
+            <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-red-600 rounded-full flex items-center justify-center border-2 border-white" title={`Substituído`}>
               <ArrowDownCircle className="w-4 h-4 text-white" />
             </div>
           )}
-          {/* ------------------------------------------- */}
 
         </div>
 
@@ -212,13 +206,13 @@ function MatchField({
         {awayStarters.map((player) => renderPlayer(player, false))}
       </div>
 
-      {/* Lista de Reservas */}
+      {/* --- NOVA SEÇÃO: Reservas --- */}
       <div className="mt-6 grid grid-cols-2 gap-4">
         <SubstituteList title={`Reservas (${homeTeam})`} players={homeSubstitutes} />
         <SubstituteList title={`Reservas (${awayTeam})`} players={awaySubstitutes} />
       </div>
+      {/* ----------------------------- */}
 
-      {/* Legenda (Atualizada) */}
       <div className="mt-6 grid grid-cols-3 gap-3 items-start text-sm">
         <div className="flex items-center gap-2">
           <div className="w-5 h-5 bg-white rounded-full border-4 border-red-500"></div>
@@ -235,7 +229,7 @@ function MatchField({
           <span className="text-white/80">Cartão amarelo</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-5 h-5 bg-white rounded-full border-4 border-green-400"></div> {/* Corrigido de yellow-400 para green-400 */}
+          <div className="w-5 h-5 bg-white rounded-full border-4 border-green-400"></div> {/* Corrigido */}
           <span className="text-white/80">Pode mitar</span>
         </div>
         <div className="flex items-center gap-2">
@@ -248,6 +242,7 @@ function MatchField({
           <div className="w-4 h-5 bg-red-500 rounded-sm"></div>
           <span className="text-white/80">Cartão vermelho</span>
         </div>
+        {/* --- 3. ATUALIZAR A LEGENDA --- */}
         <div className="flex items-center gap-2">
           <ArrowUpCircle className="w-5 h-5 text-green-400" />
           <span className="text-white/80">Entrou</span>
