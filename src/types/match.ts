@@ -1,4 +1,3 @@
-// Define a aparência das estatísticas
 export interface MatchStats {
   possession: { home: number; away: number };
   bigChances: { home: number; away: number };
@@ -14,14 +13,13 @@ export interface MatchStats {
   redCards: { home: number; away: number };
 }
 
-// Define os 3 períodos, permitindo que sejam nulos
 export interface PeriodData {
   firstHalf: MatchStats | null;
   secondHalf: MatchStats | null;
   full: MatchStats | null;
 }
 
-// Define o jogador (usado no MatchField)
+// Define o jogador
 export interface Player {
   id: number;
   name: string;
@@ -33,12 +31,16 @@ export interface Player {
   isFlop?: boolean;
   yellowCards?: number;
   redCards?: number;
+  
+  wasSubstituted?: boolean; // Para o titular que saiu
+  substitutedInFor?: string; // Para o reserva (nome de quem saiu)
 }
 
-// Define a escalação (usado no MatchField)
+// Define a escalação
 export interface Lineup {
   formation: string;
-  players: Player[];
+  starters: Player[];
+  substitutes: Player[];
 }
 
 // O objeto principal da Partida
@@ -53,12 +55,10 @@ export interface Match {
   isFinished: boolean;
   serie: 'A' | 'B' | 'C' | 'D';
   
-  // Dados Reais (virão da API)
   homeLineup?: Lineup;
   awayLineup?: Lineup;
   periodStats?: PeriodData;
 
-  // Dados de Previsão (virão do seu mockMatches.ts)
   predictedWinner: string;
   predictedHomeScore: number;
   predictedAwayScore: number;
