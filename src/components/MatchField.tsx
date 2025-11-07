@@ -1,7 +1,9 @@
 import { Player } from "../types/match";
 import gol from "../pictures/gol.svg";
 import ppg from "../pictures/chuteira.png";
-import { ArrowUpCircle, ArrowDownCircle } from 'lucide-react'; 
+import { ArrowUpCircle, ArrowDownCircle } from 'lucide-react';
+// 1. IMPORTAR OS NOVOS TEMPLATES DE POSIÇÃO
+import { HOME_433, AWAY_433, Formation } from "../data/formationPositions";
 
 interface MatchFieldProps {
   homeTeam: string;
@@ -16,24 +18,15 @@ interface MatchFieldProps {
   awayFormation: string;
 }
 
-// Isto mostra os ícones de Gol, Assistência e Cartões
 const PlayerEventIcons = ({ player }: { player: Player }) => {
   return (
     <div className="flex gap-1">
-      <CardIcon
-        yellowCards={player.yellowCards}
-        redCards={player.redCards}
-      />
-      {player.goals && player.goals > 0 && (
-        <EventIcon count={player.goals} iconType="goal" />
-      )}
-      {player.assists && player.assists > 0 && (
-        <EventIcon count={player.assists} iconType="assist" />
-      )}
+      <CardIcon yellowCards={player.yellowCards} redCards={player.redCards} />
+      {player.goals && player.goals > 0 && (<EventIcon count={player.goals} iconType="goal" />)}
+      {player.assists && player.assists > 0 && (<EventIcon count={player.assists} iconType="assist" />)}
     </div>
   );
 };
-
 const EventIcon = ({ count, iconType }: { count: number; iconType: "goal" | "assist"; }) => {
   const bgColor = iconType === "goal" ? "bg-white" : "bg-gray-400";
   const iconMockup = iconType === "goal" ? (<img src={gol} alt="gol" />) : (<img src={ppg} alt="ppg" className="h-4 w-auto" />);
@@ -67,6 +60,7 @@ const CardIcon = ({ yellowCards = 0, redCards = 0 }: { yellowCards?: number; red
   if (yellowCards === 1) {
     return (
       <div className="w-4 h-5 bg-yellow-400 rounded-sm border border-black/30" title="Cartão amarelo"></div>
+
     );
   }
   return null;
@@ -79,13 +73,11 @@ const SubstituteList = ({ title, players }: { title: string, players: Player[] }
       {players.length > 0 ? (
         players.map((player) => (
           <div key={player.id} className="text-sm">
-            {/* Se for uma substituição (entrou) */}
             {player.substitutedInFor ? (
               <div className="space-y-1.5 py-1">
                 <div className="flex items-center gap-2 text-green-400">
                   <ArrowUpCircle className="w-4 h-4 flex-shrink-0" />
                   <span className="font-medium">{player.name}</span>
-                  {/* Mostra os eventos (gol, etc.) do reserva */}
                   <PlayerEventIcons player={player} />
                 </div>
                 <div className="flex items-center gap-2 text-white/60 pl-1">
@@ -94,13 +86,9 @@ const SubstituteList = ({ title, players }: { title: string, players: Player[] }
                 </div>
               </div>
             ) : (
-              // Se for só um jogador no banco
               <div className="flex items-center gap-3 py-1">
-                <span className="text-white/80 font-bold text-sm w-6 text-center">
-                  {player.number}
-                </span>
+                <span className="text-white/80 font-bold text-sm w-6 text-center">{player.number}</span>
                 <span className="text-white">{player.name}</span>
-                {/* Mostra os eventos (gol, etc.) do reserva */}
                 <PlayerEventIcons player={player} />
               </div>
             )}
@@ -127,8 +115,7 @@ function MatchField({
   awayFormation,
 }: MatchFieldProps) {
 
-
-  const renderPlayer = (player: Player, isHome: boolean) => {
+  const renderPlayer = (player: Player, isHome: boolean, formation: Formation) => {
     let circleClassName = "bg-white/90 border-[3px] border-white/30";
     if (player.isMVP) {
       circleClassName = "bg-white/90 border-4 border-green-400";
@@ -136,34 +123,36 @@ function MatchField({
       circleClassName = "bg-white/90 border-4 border-red-500";
     }
 
+    const position = formation[player.role] || { x: 50, y: 50 };
+    
+    if (player.role === 'SUB') {
+      return null;
+    }
+
     return (
       <div
         key={player.id}
         className="absolute transform -translate-x-1/2 -translate-y-1/2"
         style={{
-          left: `${100 - player.position.y}%`,
-          top: `${player.position.x}%`,
+          left: `${100 - position.y}%`,
+          top: `${position.x}%`,
         }}
       >
         <div className="absolute -top-7 left-1/2 transform -translate-x-1/2 flex gap-1 z-20">
           <PlayerEventIcons player={player} />
         </div>
-
         <div
           className={`relative w-12 h-12 rounded-full flex items-center justify-center ${circleClassName} transition-all duration-300`}
         >
           <span className="text-[#020074] font-bold text-sm">
             {player.number}
           </span>
-
           {player.wasSubstituted && (
             <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-red-600 rounded-full flex items-center justify-center border-2 border-white" title={`Substituído`}>
               <ArrowDownCircle className="w-4 h-4 text-white" />
             </div>
           )}
-
         </div>
-
         <div className="absolute top-14 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
           <span className="text-white text-xs font-medium bg-black/40 px-2 py-1 rounded">
             {player.name}
@@ -172,6 +161,9 @@ function MatchField({
       </div>
     );
   };
+
+  const homeFormationTemplate = (homeFormation === "4-3-3") ? HOME_433 : HOME_433;
+  const awayFormationTemplate = (awayFormation === "4-3-3" || awayFormation === "4-4-2") ? AWAY_433 : AWAY_433;
 
   return (
     <div className="w-full">
@@ -193,8 +185,8 @@ function MatchField({
       <div className="relative w-full aspect-[4/3] border-[3px] border-white/30 rounded-lg overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-white/40 transform -translate-x-1/2"></div>
-          <div className="absolute left-1/2 top-1/2 w-24 h-24 border-[3px] border-white/40 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
-          <div className="absolute left-1/2 top-1/2 w-2 h-2 bg-white/40 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
+         <div className="absolute left-1/2 top-1/2 w-24 h-24 border-[3px] border-white/40 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
+       <div className="absolute left-1/2 top-1/2 w-2 h-2 bg-white/40 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
           <div className="absolute left-0 top-1/2 w-16 h-40 border-[3px] border-white/40 border-l-0 transform -translate-y-1/2"></div>
           <div className="absolute left-0 top-1/2 w-8 h-20 border-[3px] border-white/40 border-l-0 transform -translate-y-1/2"></div>
           <div className="absolute right-0 top-1/2 w-16 h-40 border-[3px] border-white/40 border-r-0 transform -translate-y-1/2"></div>
@@ -202,16 +194,14 @@ function MatchField({
           <div className="absolute left-0 top-1/2 w-1.5 h-16 bg-white/60 transform -translate-y-1/2"></div>
           <div className="absolute right-0 top-1/2 w-1.5 h-16 bg-white/60 transform -translate-y-1/2"></div>
         </div>
-        {homeStarters.map((player) => renderPlayer(player, true))}
-        {awayStarters.map((player) => renderPlayer(player, false))}
+        {homeStarters.map((player) => renderPlayer(player, true, homeFormationTemplate))}
+        {awayStarters.map((player) => renderPlayer(player, false, awayFormationTemplate))}
       </div>
 
-      {/* --- NOVA SEÇÃO: Reservas --- */}
       <div className="mt-6 grid grid-cols-2 gap-4">
         <SubstituteList title={`Reservas (${homeTeam})`} players={homeSubstitutes} />
         <SubstituteList title={`Reservas (${awayTeam})`} players={awaySubstitutes} />
       </div>
-      {/* ----------------------------- */}
 
       <div className="mt-6 grid grid-cols-3 gap-3 items-start text-sm">
         <div className="flex items-center gap-2">
@@ -229,7 +219,8 @@ function MatchField({
           <span className="text-white/80">Cartão amarelo</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-5 h-5 bg-white rounded-full border-4 border-green-400"></div> {/* Corrigido */}
+
+          <div className="w-5 h-5 bg-white rounded-full border-4 border-green-400"></div>
           <span className="text-white/80">Pode mitar</span>
         </div>
         <div className="flex items-center gap-2">
@@ -240,9 +231,9 @@ function MatchField({
         </div>
         <div className="flex items-center gap-2">
           <div className="w-4 h-5 bg-red-500 rounded-sm"></div>
+
           <span className="text-white/80">Cartão vermelho</span>
         </div>
-        {/* --- 3. ATUALIZAR A LEGENDA --- */}
         <div className="flex items-center gap-2">
           <ArrowUpCircle className="w-5 h-5 text-green-400" />
           <span className="text-white/80">Entrou</span>
