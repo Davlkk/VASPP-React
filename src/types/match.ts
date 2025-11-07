@@ -1,3 +1,4 @@
+// Define a aparência das estatísticas
 export interface MatchStats {
   possession: { home: number; away: number };
   bigChances: { home: number; away: number };
@@ -13,6 +14,7 @@ export interface MatchStats {
   redCards: { home: number; away: number };
 }
 
+// Define os 3 períodos, permitindo que sejam nulos
 export interface PeriodData {
   firstHalf: MatchStats | null;
   secondHalf: MatchStats | null;
@@ -23,7 +25,7 @@ export interface PeriodData {
 export interface Player {
   id: number;
   name: string;
-  position: { x: number; y: number };
+  role: string;
   number: number;
   goals?: number;
   assists?: number;
@@ -31,9 +33,8 @@ export interface Player {
   isFlop?: boolean;
   yellowCards?: number;
   redCards?: number;
-  
-  wasSubstituted?: boolean; // Para o titular que saiu
-  substitutedInFor?: string; // Para o reserva (nome de quem saiu)
+  wasSubstituted?: boolean; 
+  substitutedInFor?: string;
 }
 
 // Define a escalação
