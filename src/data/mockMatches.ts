@@ -63,9 +63,9 @@ export const mockMatches: Match[] = [
         { id: 10, name: 'Keno', position: { x: 15, y: 60 }, number: 10 },
         { id: 11, name: 'Germán Cano', position: { x: 50, y: 55 }, number: 11 }
       ],
-      substitutes: [ // <-- MUDANÇA: 5 reservas + dados de substituição
-        { id: 30, name: 'J. Kennedy (IA)', position: { x: 0, y: 0 }, number: 99, substitutedPlayerName: 'Germán Cano' },
-        { id: 31, name: 'Felipe Melo (IA)', position: { x: 0, y: 0 }, number: 33, substitutedPlayerName: 'Ganso' },
+      substitutes: [
+        { id: 30, name: 'J. Kennedy (IA)', position: { x: 0, y: 0 }, number: 99, substitutedInFor: 'Germán Cano' },
+        { id: 31, name: 'Felipe Melo (IA)', position: { x: 0, y: 0 }, number: 33, substitutedInFor: 'Ganso' },
         { id: 32, name: 'Lima (IA)', position: { x: 0, y: 0 }, number: 45 },
         { id: 33, name: 'Marlon (IA)', position: { x: 0, y: 0 }, number: 30 },
         { id: 34, name: 'Alexsander (IA)', position: { x: 0, y: 0 }, number: 5 }
@@ -86,8 +86,8 @@ export const mockMatches: Match[] = [
         { id: 21, name: 'Dinenno', position: { x: 20, y: 40 }, number: 10 },
         { id: 22, name: 'Arthur Gomes', position: { x: 85, y: 40 }, number: 11 }
       ],
-      substitutes: [ // <-- MUDANÇA: 5 reservas + dados de substituição
-        { id: 40, name: 'Rafa Silva (IA)', position: { x: 0, y: 0 }, number: 88, substitutedPlayerName: 'Matheus Pereira' },
+      substitutes: [
+        { id: 40, name: 'Rafa Silva (IA)', position: { x: 0, y: 0 }, number: 88, substitutedInFor: 'Matheus Pereira' },
         { id: 41, name: 'Lucas Silva (IA)', position: { x: 0, y: 0 }, number: 16 },
         { id: 42, name: 'R. Villalba (IA)', position: { x: 0, y: 0 }, number: 26 },
         { id: 43, name: 'Mateus Vital (IA)', position: { x: 0, y: 0 }, number: 7 },

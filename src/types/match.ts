@@ -1,6 +1,3 @@
-// src/types/match.ts
-
-// Define a aparência das estatísticas
 export interface MatchStats {
   possession: { home: number; away: number };
   bigChances: { home: number; away: number };
@@ -16,7 +13,6 @@ export interface MatchStats {
   redCards: { home: number; away: number };
 }
 
-// Define os 3 períodos, permitindo que sejam nulos
 export interface PeriodData {
   firstHalf: MatchStats | null;
   secondHalf: MatchStats | null;
@@ -35,8 +31,9 @@ export interface Player {
   isFlop?: boolean;
   yellowCards?: number;
   redCards?: number;
-  // --- NOVO CAMPO ---
-  substitutedPlayerName?: string; // Nome do jogador que ele substituiu
+  
+  wasSubstituted?: boolean; // Para o titular que saiu
+  substitutedInFor?: string; // Para o reserva (nome de quem saiu)
 }
 
 // Define a escalação
