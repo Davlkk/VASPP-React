@@ -1,4 +1,3 @@
-// Define a aparência das estatísticas
 export interface MatchStats {
   possession: { home: number; away: number };
   bigChances: { home: number; away: number };
@@ -14,7 +13,6 @@ export interface MatchStats {
   redCards: { home: number; away: number };
 }
 
-// Define os 3 períodos, permitindo que sejam nulos
 export interface PeriodData {
   firstHalf: MatchStats | null;
   secondHalf: MatchStats | null;

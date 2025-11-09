@@ -1,132 +1,766 @@
 // src/data/mockMatches.ts
-import { Match, MatchStats, PeriodData } from '../types/match';
+// Fonte de dados exclusiva para "Previsão AI"
 
-// ... (todo o seu código 'generateFullStats', 'match1_pred_h1', etc. permanece aqui) ...
-function generateFullStats(
-  h1: MatchStats,
-  h2: MatchStats
-): MatchStats {
-  const full = JSON.parse(JSON.stringify(h1));
-  (Object.keys(full) as Array<keyof MatchStats>).forEach((key) => {
-  	if (key === 'possession') {
-    	return;
-  	}
-  	full[key].home = h1[key].home + h2[key].home;
-  	full[key].away = h1[key].away + h2[key].away;
-  });
-  return full;
+import { Match, MatchStats, PeriodData } from "../types/match";
+
+// --- Função Auxiliar para Stats ---
+function generateFullStats(h1: MatchStats, h2: MatchStats): MatchStats {
+  const full = JSON.parse(JSON.stringify(h1));
+  (Object.keys(full) as Array<keyof MatchStats>).forEach((key) => {
+    if (key === "possession") {
+      return;
+    }
+    full[key].home = h1[key].home + h2[key].home;
+    full[key].away = h1[key].away + h2[key].away;
+  });
+  return full;
 }
+
+// --- Dados Previstos (IA) da Partida 1 ---
 const match1_pred_h1: MatchStats = {
-  possession: { home: 45, away: 55 }, bigChances: { home: 1, away: 2 }, shots: { home: 6, away: 7 }, shotsOnTarget: { home: 2, away: 3 }, saves: { home: 2, away: 1 }, corners: { home: 3, away: 2 }, fouls: { home: 5, away: 4 }, passes: { home: 200, away: 220 }, tackles: { home: 7, away: 8 }, freeKicks: { home: 4, away: 5 }, yellowCards: { home: 1, away: 0 }, redCards: { home: 0, away: 0 }
+  possession: { home: 45, away: 55 },
+  bigChances: { home: 1, away: 2 },
+  shots: { home: 6, away: 7 },
+  shotsOnTarget: { home: 2, away: 3 },
+  saves: { home: 2, away: 1 },
+  corners: { home: 3, away: 2 },
+  fouls: { home: 5, away: 4 },
+  passes: { home: 200, away: 220 },
+  tackles: { home: 7, away: 8 },
+  freeKicks: { home: 4, away: 5 },
+  yellowCards: { home: 1, away: 0 },
+  redCards: { home: 0, away: 0 },
 };
 const match1_pred_h2: MatchStats = {
-  possession: { home: 45, away: 55 }, bigChances: { home: 2, away: 2 }, shots: { home: 6, away: 8 }, shotsOnTarget: { home: 3, away: 4 }, saves: { home: 2, away: 2 }, corners: { home: 3, away: 3 }, fouls: { home: 5, away: 4 }, passes: { home: 200, away: 230 }, tackles: { home: 8, away: 10 }, freeKicks: { home: 4, away: 5 }, yellowCards: { home: 1, away: 1 }, redCards: { home: 0, away: 0 }
+  possession: { home: 45, away: 55 },
+  bigChances: { home: 2, away: 2 },
+  shots: { home: 6, away: 8 },
+  shotsOnTarget: { home: 3, away: 4 },
+  saves: { home: 2, away: 2 },
+  corners: { home: 3, away: 3 },
+  fouls: { home: 5, away: 4 },
+  passes: { home: 200, away: 230 },
+  tackles: { home: 8, away: 10 },
+  freeKicks: { home: 4, away: 5 },
+  yellowCards: { home: 1, away: 1 },
+  redCards: { home: 0, away: 0 },
 };
 const match1_pred_full = generateFullStats(match1_pred_h1, match1_pred_h2);
 match1_pred_full.possession = { home: 45, away: 55 };
-const match2_pred_full: MatchStats = {
-  possession: { home: 50, away: 50 }, bigChances: { home: 2, away: 2 }, shots: { home: 10, away: 10 }, shotsOnTarget: { home: 4, away: 4 }, saves: { home: 3, away: 3 }, corners: { home: 5, away: 5 }, fouls: { home: 10, away: 10 }, passes: { home: 350, away: 350 }, tackles: { home: 15, away: 15 }, freeKicks: { home: 10, away: 10 }, yellowCards: { home: 2, away: 2 }, redCards: { home: 0, away: 0 }
-};
-// ... Fim do bloco de stats ...
 
+// --- Dados Previstos (IA) da Partida 2 (Vasco vs Grêmio) ---
+const match2_pred_h1: MatchStats = {
+  possession: { home: 45, away: 55 },
+  bigChances: { home: 1, away: 2 },
+  shots: { home: 6, away: 7 },
+  shotsOnTarget: { home: 2, away: 3 },
+  saves: { home: 2, away: 1 },
+  corners: { home: 3, away: 2 },
+  fouls: { home: 5, away: 4 },
+  passes: { home: 200, away: 220 },
+  tackles: { home: 7, away: 8 },
+  freeKicks: { home: 4, away: 5 },
+  yellowCards: { home: 1, away: 0 },
+  redCards: { home: 0, away: 0 },
+};
+const match2_pred_h2: MatchStats = {
+  possession: { home: 45, away: 55 },
+  bigChances: { home: 2, away: 2 },
+  shots: { home: 6, away: 8 },
+  shotsOnTarget: { home: 3, away: 4 },
+  saves: { home: 2, away: 2 },
+  corners: { home: 3, away: 3 },
+  fouls: { home: 5, away: 4 },
+  passes: { home: 200, away: 230 },
+  tackles: { home: 8, away: 10 },
+  freeKicks: { home: 4, away: 5 },
+  yellowCards: { home: 1, away: 0 },
+  redCards: { home: 0, away: 0 },
+};
+const match2_pred_full = generateFullStats(match2_pred_h1, match2_pred_h2);
+match2_pred_full.possession = { home: 45, away: 55 };
+
+// --- Dados Previstos (IA) da Partida 4 (Flamengo vs Palmeiras) ---
+const match4_pred_h1: MatchStats = {
+  possession: { home: 58, away: 42 },
+  bigChances: { home: 2, away: 1 },
+  shots: { home: 7, away: 5 },
+  shotsOnTarget: { home: 4, away: 2 },
+  saves: { home: 1, away: 2 },
+  corners: { home: 3, away: 2 },
+  fouls: { home: 6, away: 8 },
+  passes: { home: 250, away: 190 },
+  tackles: { home: 9, away: 7 },
+  freeKicks: { home: 8, away: 6 },
+  yellowCards: { home: 0, away: 1 },
+  redCards: { home: 0, away: 0 },
+};
+const match4_pred_h2: MatchStats = {
+  possession: { home: 58, away: 42 },
+  bigChances: { home: 1, away: 1 },
+  shots: { home: 8, away: 6 },
+  shotsOnTarget: { home: 3, away: 3 },
+  saves: { home: 2, away: 2 },
+  corners: { home: 4, away: 2 },
+  fouls: { home: 7, away: 9 },
+  passes: { home: 240, away: 180 },
+  tackles: { home: 10, away: 8 },
+  freeKicks: { home: 9, away: 7 },
+  yellowCards: { home: 1, away: 1 },
+  redCards: { home: 0, away: 0 },
+};
+const match4_pred_full = generateFullStats(match4_pred_h1, match4_pred_h2);
+match4_pred_full.possession = { home: 58, away: 42 };
+
+// --- Dados Previstos (IA) da Partida 5 (Santos vs Sport Recife) ---
+const match5_pred_h1: MatchStats = {
+  possession: { home: 60, away: 40 },
+  bigChances: { home: 1, away: 0 },
+  shots: { home: 5, away: 3 },
+  shotsOnTarget: { home: 2, away: 1 },
+  saves: { home: 1, away: 1 },
+  corners: { home: 4, away: 1 },
+  fouls: { home: 7, away: 7 },
+  passes: { home: 230, away: 170 },
+  tackles: { home: 8, away: 9 },
+  freeKicks: { home: 7, away: 7 },
+  yellowCards: { home: 1, away: 1 },
+  redCards: { home: 0, away: 0 },
+};
+const match5_pred_h2: MatchStats = {
+  possession: { home: 60, away: 40 },
+  bigChances: { home: 2, away: 1 },
+  shots: { home: 7, away: 4 },
+  shotsOnTarget: { home: 3, away: 2 },
+  saves: { home: 1, away: 2 },
+  corners: { home: 3, away: 2 },
+  fouls: { home: 8, away: 6 },
+  passes: { home: 240, away: 180 },
+  tackles: { home: 10, away: 7 },
+  freeKicks: { home: 6, away: 8 },
+  yellowCards: { home: 0, away: 1 },
+  redCards: { home: 0, away: 0 },
+};
+const match5_pred_full = generateFullStats(match5_pred_h1, match5_pred_h2);
+match5_pred_full.possession = { home: 60, away: 40 };
+
+// --- Dados Previstos (IA) da Partida 6 (Caxias vs Botafogo-PB) ---
+const match6_pred_h1: MatchStats = {
+  possession: { home: 52, away: 48 },
+  bigChances: { home: 1, away: 1 },
+  shots: { home: 4, away: 4 },
+  shotsOnTarget: { home: 1, away: 2 },
+  saves: { home: 1, away: 1 },
+  corners: { home: 2, away: 3 },
+  fouls: { home: 9, away: 10 },
+  passes: { home: 190, away: 180 },
+  tackles: { home: 11, away: 10 },
+  freeKicks: { home: 10, away: 9 },
+  yellowCards: { home: 2, away: 1 },
+  redCards: { home: 0, away: 0 },
+};
+const match6_pred_h2: MatchStats = {
+  possession: { home: 52, away: 48 },
+  bigChances: { home: 2, away: 0 },
+  shots: { home: 6, away: 3 },
+  shotsOnTarget: { home: 3, away: 1 },
+  saves: { home: 1, away: 2 },
+  corners: { home: 4, away: 2 },
+  fouls: { home: 8, away: 11 },
+  passes: { home: 200, away: 170 },
+  tackles: { home: 12, away: 9 },
+  freeKicks: { home: 11, away: 8 },
+  yellowCards: { home: 1, away: 2 },
+  redCards: { home: 0, away: 0 },
+};
+const match6_pred_full = generateFullStats(match6_pred_h1, match6_pred_h2);
+match6_pred_full.possession = { home: 52, away: 48 };
+
+// --- Dados Previstos (IA) da Partida 7 (Novo Hamburgo vs Hercílio Luz) ---
+const match7_pred_h1: MatchStats = {
+  possession: { home: 48, away: 52 },
+  bigChances: { home: 0, away: 1 },
+  shots: { home: 3, away: 5 },
+  shotsOnTarget: { home: 1, away: 2 },
+  saves: { home: 1, away: 1 },
+  corners: { home: 2, away: 3 },
+  fouls: { home: 10, away: 8 },
+  passes: { home: 170, away: 200 },
+  tackles: { home: 10, away: 12 },
+  freeKicks: { home: 8, away: 10 },
+  yellowCards: { home: 1, away: 0 },
+  redCards: { home: 0, away: 0 },
+};
+const match7_pred_h2: MatchStats = {
+  possession: { home: 48, away: 52 },
+  bigChances: { home: 1, away: 1 },
+  shots: { home: 4, away: 6 },
+  shotsOnTarget: { home: 2, away: 3 },
+  saves: { home: 2, away: 1 },
+  corners: { home: 3, away: 4 },
+  fouls: { home: 9, away: 9 },
+  passes: { home: 180, away: 210 },
+  tackles: { home: 11, away: 10 },
+  freeKicks: { home: 9, away: 9 },
+  yellowCards: { home: 1, away: 2 },
+  redCards: { home: 0, away: 0 },
+};
+const match7_pred_full = generateFullStats(match7_pred_h1, match7_pred_h2);
+match7_pred_full.possession = { home: 48, away: 52 };
+
+// --- Dados Previstos (IA) da Partida 8 (Atlético-MG vs São Paulo) ---
+const match8_pred_h1: MatchStats = {
+  possession: { home: 55, away: 45 },
+  bigChances: { home: 2, away: 1 },
+  shots: { home: 8, away: 6 },
+  shotsOnTarget: { home: 4, away: 2 },
+  saves: { home: 1, away: 3 },
+  corners: { home: 4, away: 2 },
+  fouls: { home: 7, away: 9 },
+  passes: { home: 240, away: 200 },
+  tackles: { home: 8, away: 10 },
+  freeKicks: { home: 9, away: 7 },
+  yellowCards: { home: 1, away: 1 },
+  redCards: { home: 0, away: 0 },
+};
+const match8_pred_h2: MatchStats = {
+  possession: { home: 55, away: 45 },
+  bigChances: { home: 2, away: 2 },
+  shots: { home: 7, away: 7 },
+  shotsOnTarget: { home: 3, away: 4 },
+  saves: { home: 3, away: 2 },
+  corners: { home: 3, away: 3 },
+  fouls: { home: 8, away: 8 },
+  passes: { home: 230, away: 210 },
+  tackles: { home: 9, away: 9 },
+  freeKicks: { home: 8, away: 8 },
+  yellowCards: { home: 1, away: 2 },
+  redCards: { home: 0, away: 0 },
+};
+const match8_pred_full = generateFullStats(match8_pred_h1, match8_pred_h2);
+match8_pred_full.possession = { home: 55, away: 45 };
 
 export const mockMatches: Match[] = [
-  {
-    id: 1,
-    date: '19/07',
-    time: '16:00',
-    homeTeam: 'Fluminense',
-    awayTeam: 'Cruzeiro',
-    homeScore: null,
-    awayScore: null,
-    isFinished: true,
-    predictedWinner: 'Cruzeiro',
-    predictedHomeScore: 0,
-    predictedAwayScore: 3,
-    serie: 'A',
-    homeLineup: { // Escalação Prevista pela IA
-      formation: '4-3-3',
-      starters: [ // <-- MUDANÇA: 'position' removido, 'role' adicionado
-        { id: 1, name: 'Fábio', role: 'GK', number: 1 },
-        { id: 2, name: 'Samuel Xavier', role: 'RB', number: 2, yellowCards: 1 }, 
-        { id: 3, name: 'Nino', role: 'RCB', number: 3, redCards: 1 },
-        { id: 4, name: 'Thiago Santos', role: 'LCB', number: 4 },
-        { id: 5, name: 'Marcelo', role: 'LB', number: 5, isFlop: true, yellowCards: 2 },
-        { id: 6, name: 'André', role: 'CDM', number: 6 },
-        { id: 7, name: 'Martinelli', role: 'LCM', number: 7 },
-        { id: 8, name: 'Ganso', role: 'RCM', number: 8, wasSubstituted: true },
-        { id: 9, name: 'Arias', role: 'RW', number: 9, yellowCards: 1 },
-        { id: 10, name: 'Keno', role: 'LW', number: 10 },
-        { id: 11, name: 'Germán Cano', role: 'ST', number: 11, wasSubstituted: true }
-      ],
+  {
+    id: 1, 
+    date: "19/07",
+    time: "16:00",
+    homeTeam: "Fluminense",
+    awayTeam: "Cruzeiro",
+    homeScore: null,
+    awayScore: null,
+    isFinished: true,
+    predictedWinner: "Cruzeiro",
+    predictedHomeScore: 0,
+    predictedAwayScore: 3,
+    serie: "A",
+    homeLineup: {
+      formation: "4-3-3", // <-- Esta string será usada para buscar o template
+      starters: [
+        { id: 1, name: "Fábio", role: "GK", number: 1 },
+        { id: 2, name: "Samuel Xavier", role: "RB", number: 2, yellowCards: 1 },
+        { id: 3, name: "Nino", role: "RCB", number: 3, redCards: 1 },
+        { id: 4, name: "Thiago Santos", role: "LCB", number: 4 },
+        {
+          id: 5,
+          name: "Marcelo",
+          role: "LB",
+          number: 5,
+          isFlop: true,
+          yellowCards: 2,
+        },
+        { id: 6, name: "André", role: "CDM", number: 6 },
+        { id: 7, name: "Martinelli", role: "LCM", number: 7 },
+        { id: 8, name: "Ganso", role: "RCM", number: 8, wasSubstituted: true },
+        { id: 9, name: "Arias", role: "RW", number: 9, yellowCards: 1 },
+        { id: 10, name: "Keno", role: "LW", number: 10 },
+        {
+          id: 11,
+          name: "Germán Cano",
+          role: "ST",
+          number: 11,
+          wasSubstituted: true,
+        },
+      ],
       substitutes: [
-        { id: 30, name: 'J. Kennedy', role: 'SUB', number: 99, substitutedInFor: 'Germán Cano', goals: 1 },
-        { id: 31, name: 'Felipe Melo', role: 'SUB', number: 33, substitutedInFor: 'Ganso', yellowCards: 1 },
-        { id: 32, name: 'Lima', role: 'SUB', number: 45 },
-        { id: 33, name: 'Marlon', role: 'SUB', number: 30 },
-        { id: 34, name: 'Alexsander', role: 'SUB', number: 5 }
-      ]
-    },
-    awayLineup: { // Escalação Prevista pela IA
-      formation: '4-3-3',
-      starters: [ // <-- MUDANÇA: 'position' removido, 'role' adicionado
-        { id: 12, name: 'Cássio', role: 'GK', number: 1 },
-        { id: 13, name: 'William', role: 'RB', number: 2 },
-        { id: 14, name: 'Zé Ivaldo', role: 'LCB', number: 3 },
-        { id: 15, name: 'João Marcelo', role: 'RCB', number: 4 },
-        { id: 16, name: 'Marlon', role: 'LB', number: 5 },
-        { id: 17, name: 'Lucas Romero', role: 'CDM', number: 6 },
-        { id: 18, name: 'Matheus Henrique', role: 'LCM', number: 7, goals: 1 },
-        { id: 19, name: 'Matheus Pereira', role: 'RCM', number: 8, isMVP: true, goals: 2, assists: 1, wasSubstituted: true },
-        { id: 20, name: 'Gabriel Veron', role: 'ST', number: 9 },
-        { id: 21, name: 'Dinenno', role: 'LWF', number: 10 },
-        { id: 22, name: 'Arthur Gomes', role: 'RWF', number: 11 }
-      ],
+        {
+          id: 30,
+          name: "J. Kennedy",
+          role: "SUB",
+          number: 99,
+          substitutedInFor: "Germán Cano",
+          goals: 1,
+        },
+        {
+          id: 31,
+          name: "Felipe Melo",
+          role: "SUB",
+          number: 33,
+          substitutedInFor: "Ganso",
+          yellowCards: 1,
+        },
+        { id: 32, name: "Lima", role: "SUB", number: 45 },
+        { id: 33, name: "Marlon", role: "SUB", number: 30 },
+        { id: 34, name: "Alexsander", role: "SUB", number: 5 },
+      ],
+    },
+    awayLineup: {
+      formation: "4-3-3", // <-- Esta string será usada para buscar o template
+      starters: [
+        { id: 12, name: "Cássio", role: "GK", number: 1 },
+        { id: 13, name: "William", role: "RB", number: 2 },
+        { id: 14, name: "Zé Ivaldo", role: "LCB", number: 3 },
+        { id: 15, name: "João Marcelo", role: "RCB", number: 4 },
+        { id: 16, name: "Marlon", role: "LB", number: 5 },
+        { id: 17, name: "Lucas Romero", role: "CDM", number: 6 },
+        { id: 18, name: "Matheus Henrique", role: "LCM", number: 7, goals: 1 },
+        {
+          id: 19,
+          name: "Matheus Pereira",
+          role: "RCM",
+          number: 8,
+          isMVP: true,
+          goals: 2,
+          assists: 1,
+          wasSubstituted: true,
+        },
+        { id: 20, name: "Gabriel Veron", role: "ST", number: 9 },
+        { id: 21, name: "Dinenno", role: "LW", number: 10 },
+        { id: 22, name: "Arthur Gomes", role: "RW", number: 11 },
+      ],
       substitutes: [
-        { id: 40, name: 'Rafa Silva', role: 'SUB', number: 88, substitutedInFor: 'Matheus Pereira' },
-        { id: 41, name: 'Lucas Silva', role: 'SUB', number: 16 },
-        { id: 42, name: 'R. Villalba', role: 'SUB', number: 26 },
-        { id: 43, name: 'Mateus Vital', role: 'SUB', number: 7 },
-        { id: 44, name: 'Álvaro B.', role: 'SUB', number: 33 }
-      ]
-    },
-    predictedPeriodStats: {
-      firstHalf: match1_pred_h1,
-      secondHalf: match1_pred_h2,
-      full: match1_pred_full
-    }
-  },
-  {
-    id: 2,
-    date: '19/07',
-    time: '17:30',
-    homeTeam: 'Vasco',
-    awayTeam: 'Grêmio',
-    homeScore: null,
-    awayScore: null,
-    isFinished: false,
-    predictedWinner: 'Empate',
-    predictedHomeScore: 2,
-    predictedAwayScore: 2,
-    serie: 'A',
+        {
+          id: 40,
+          name: "Rafa Silva",
+          role: "SUB",
+          number: 88,
+          substitutedInFor: "Matheus Pereira",
+        },
+        { id: 41, name: "Lucas Silva", role: "SUB", number: 16 },
+        { id: 42, name: "R. Villalba", role: "SUB", number: 26 },
+        { id: 43, name: "Mateus Vital", role: "SUB", number: 7 },
+        { id: 44, name: "Álvaro B.", role: "SUB", number: 33 },
+      ],
+    },
     predictedPeriodStats: {
-      firstHalf: null,
-      secondHalf: null,
-      full: match2_pred_full
-    }
-  },
-  {
-    id: 3,
-    date: '19/07',
-    time: '17:30',
-    homeTeam: 'Coritiba',
-    awayTeam: 'Goias',
-    homeScore: null,
-    awayScore: null,
-    isFinished: false,
-    predictedWinner: 'Empate',
-    predictedHomeScore: 2,
-    predictedAwayScore: 2,
-    serie: 'B',
-  },
+      firstHalf: match1_pred_h1,
+      secondHalf: match1_pred_h2,
+      full: match1_pred_full,
+    },
+  },
+
+  {
+    id: 2,
+    date: "19/07",
+    time: "17:30",
+    homeTeam: "Vasco",
+    awayTeam: "Grêmio",
+    homeScore: null,
+    awayScore: null,
+    isFinished: false,
+    predictedWinner: "Empate",
+    predictedHomeScore: 2,
+    predictedAwayScore: 2,
+    serie: "A",
+    homeLineup: {
+      formation: "4-3-3",
+      starters: [
+        { id: 101, name: "Leo Jardim", role: "GK", number: 1 },
+        {
+          id: 102,
+          name: "Paulo Henrique",
+          role: "RB",
+          number: 96,
+          yellowCards: 1,
+        },
+        {
+          id: 103,
+          name: "João Victor",
+          role: "RCB",
+          number: 38,
+          yellowCards: 1,
+          wasSubstituted: true,
+        },
+        {
+          id: 104,
+          name: "L. Freitas",
+          role: "LCB",
+          number: 43,
+          goals: 1,
+        },
+        { id: 105, name: "Lucas Piton", role: "LB", number: 6, goals: 1, assists: 1, isMVP: true },
+        { id: 106, name: "Hugo Moura", role: "CDM", number: 25 },
+        { id: 107, name: "Tchê Tchê", role: "LCM", number: 3 },
+        {
+          id: 108,
+          name: "David",
+          role: "RCM",
+          number: 7,
+          wasSubstituted: true,
+        },
+        { id: 109, name: "Rayan", role: "RW", number: 77 },
+        { id: 110, name: "Nuno Moreira", role: "LW", number: 17 },
+        { id: 111, name: "Pablo Vegetti", role: "ST", number: 99, isFlop: true },
+      ],
+      substitutes: [
+        {
+          id: 201,
+          name: "loide Augusto",
+          role: "SUB",
+          number: 45,
+          substitutedInFor: "David",
+        },
+        {
+          id: 202,
+          name: "Matheus Carvalho",
+          role: "SUB",
+          number: 85,
+          substitutedInFor: "João Victor",
+        },
+        { id: 203, name: "Jair Rodrigues Júnior", role: "SUB", number: 8 },
+        { id: 204, name: "Victor Luis", role: "SUB", number: 12 },
+        { id: 205, name: "Daniel Fuzato", role: "SUB", number: 13 },
+      ],
+    },
+    awayLineup: {
+      formation: "3-4-3",
+      starters: [
+        { id: 112, name: "T. Volpi", role: "GK", number: 1 },
+        { id: 113, name: "Riquelme Freitas", role: "RM", number: 65 },
+        { id: 114, name: "Walter Kannemann", role: "LCB", number: 4 },
+        { id: 115, name: "Wagner Leonardo", role: "RCB", number: 3 },
+        { id: 116, name: "Gustavo Martins", role: "CB", number: 53, goals: 1 },
+        { id: 117, name: "Dodi", role: "LCM", number: 17 },
+        {
+          id: 118,
+          name: "Mathias Villasanti",
+          role: "RCM",
+          number: 20,
+          isFlop: true,
+        },
+        {
+          id: 119,
+          name: "Edenilson",
+          role: "LM",
+          number: 8,
+          isMVP: true,
+          goals: 1,
+          wasSubstituted: true,
+        },
+        { id: 120, name: "William", role: "RW", number: 9 },
+        { id: 121, name: "M. Braithwaite", role: "ST", number: 22 },
+        { id: 122, name: "Pavon", role: "LW", number: 7, assists: 2},
+      ],
+      substitutes: [
+        {
+          id: 206,
+          name: "Franco Cristaldo",
+          role: "SUB",
+          number: 19,
+          substitutedInFor: "Edenilson",
+        },
+        { id: 207, name: "Riquelme Freitas", role: "SUB", number: 65 },
+        { id: 208, name: "Gabriel Grando", role: "SUB", number: 12 },
+        { id: 209, name: "Igor Serrote", role: "SUB", number: 34 },
+        { id: 210, name: "André Henrique", role: "SUB", number: 77 },
+      ],
+    },
+    predictedPeriodStats: {
+      firstHalf: match2_pred_h1,
+      secondHalf: match2_pred_h2,
+      full: match2_pred_full,
+    },
+  },
+  {
+    id: 3,
+    date: "19/07",
+    time: "17:30",
+    homeTeam: "Coritiba",
+    awayTeam: "Goias",
+    homeScore: null,
+    awayScore: null,
+    isFinished: false,
+    predictedWinner: "Empate",
+    predictedHomeScore: 2,
+    predictedAwayScore: 2,
+    serie: "B",
+  },
+  {
+    id: 4,
+    date: "20/07",
+    time: "16:00",
+    homeTeam: "Flamengo",
+    awayTeam: "Palmeiras",
+    homeScore: null,
+    awayScore: null,
+    isFinished: true,
+    predictedWinner: "Flamengo",
+    predictedHomeScore: 2,
+    predictedAwayScore: 1,
+    serie: "A",
+    homeLineup: {
+      formation: "4-3-3",
+      starters: [
+        { id: 401, name: "Rossi", role: "GK", number: 1 },
+        { id: 402, name: "Varela", role: "RB", number: 2 },
+        { id: 403, name: "Fabrício B.", role: "RCB", number: 15 },
+        { id: 404, name: "Léo Pereira", role: "LCB", number: 4 },
+        { id: 405, name: "Ayrton Lucas", role: "LB", number: 6 },
+        { id: 406, name: "Erick Pulgar", role: "CDM", number: 5 },
+        { id: 407, name: "De la Cruz", role: "LCM", number: 18, isMVP: true },
+        { id: 408, name: "Arrascaeta", role: "RCM", number: 14, goals: 1 },
+        { id: 409, name: "Luiz Araújo", role: "RW", number: 7, assists: 1 },
+        { id: 410, name: "Everton C.", role: "LW", number: 11, wasSubstituted: true },
+        { id: 411, name: "Pedro", role: "ST", number: 9, goals: 1 },
+      ],
+      substitutes: [
+        { id: 412, name: "Bruno H.", role: "SUB", number: 27, substitutedInFor: "Everton C." },
+        { id: 413, name: "Gerson", role: "SUB", number: 20 },
+      ],
+    },
+    awayLineup: {
+      formation: "4-2-3-1",
+      starters: [
+        { id: 420, name: "Weverton", role: "GK", number: 21 },
+        { id: 421, name: "Mayke", role: "RB", number: 12 },
+        { id: 422, name: "Murilo", role: "RCB", number: 26 },
+        { id: 423, name: "G. Gómez", role: "LCB", number: 15 },
+        { id: 424, name: "Piquerez", role: "LB", number: 22 },
+        { id: 425, name: "Aníbal M.", role: "RDM", number: 5 },
+        { id: 426, name: "Zé Rafael", role: "LDM", number: 8, isFlop: true, yellowCards: 1 },
+        { id: 427, name: "Raphael Veiga", role: "MEI", number: 23, goals: 1, wasSubstituted: true },
+        { id: 428, name: "Estêvão", role: "RW", number: 41 },
+        { id: 429, name: "Lázaro", role: "LW", number: 17 },
+        { id: 430, name: "Endrick", role: "ST", number: 9 },
+      ],
+      substitutes: [
+        { id: 431, name: "Rony", role: "SUB", number: 10, substitutedInFor: "Raphael Veiga" },
+      ],
+    },
+    predictedPeriodStats: {
+      firstHalf: match4_pred_h1,
+      secondHalf: match4_pred_h2,
+      full: match4_pred_full,
+    },
+  },
+  {
+    id: 5,
+    date: "20/07",
+    time: "18:30",
+    homeTeam: "Santos",
+    awayTeam: "Sport Recife",
+    homeScore: null,
+    awayScore: null,
+    isFinished: false,
+    predictedWinner: "Empate",
+    predictedHomeScore: 1,
+    predictedAwayScore: 1,
+    serie: "B",
+    homeLineup: {
+      formation: "4-3-3",
+      starters: [
+        { id: 501, name: "João Paulo", role: "GK", number: 1 },
+        { id: 502, name: "Aderlan", role: "RB", number: 4 },
+        { id: 503, name: "Gil", role: "RCB", number: 2 },
+        { id: 504, name: "J. Joaquim", role: "LCB", number: 3 },
+        { id: 505, name: "Escobar", role: "LB", number: 6 },
+        { id: 506, name: "J. Schmidt", role: "CDM", number: 5 },
+        { id: 507, name: "D. Pituca", role: "LCM", number: 8 },
+        { id: 508, name: "Giuliano", role: "RCM", number: 10, isMVP: true, assists: 1 },
+        { id: 509, name: "Guilherme", role: "RW", number: 11, goals: 1 },
+        { id: 510, name: "Otero", role: "LW", number: 7 },
+        { id: 511, name: "Bigode", role: "ST", number: 9, isFlop: true },
+      ],
+      substitutes: [
+        { id: 512, name: "Furch", role: "SUB", number: 22 },
+      ],
+    },
+    awayLineup: {
+      formation: "4-4-2",
+      starters: [
+        { id: 520, name: "Caíque França", role: "GK", number: 1 },
+        { id: 521, name: "Rosales", role: "RB", number: 2 },
+        { id: 522, name: "R. Thyere", role: "RCB", number: 6 },
+        { id: 523, name: "Luciano C.", role: "LCB", number: 3 },
+        { id: 524, name: "Felipinho", role: "LB", number: 5 },
+        { id: 525, name: "F. Dominguez", role: "CDM", number: 8 },
+        { id: 526, name: "Fábio M.", role: "LCM", number: 7 },
+        { id: 527, name: "Lucas Lima", role: "RCM", number: 10, goals: 1, wasSubstituted: true },
+        { id: 528, name: "Romarinho", role: "RW", number: 11 },
+        { id: 529, name: "G. Coutinho", role: "ST", number: 9 },
+        { id: 530, name: "Barletta", role: "ST2", number: 30 },
+      ],
+      substitutes: [
+        { id: 531, name: "Zé Roberto", role: "SUB", number: 18, substitutedInFor: "Lucas Lima" },
+      ],
+    },
+    predictedPeriodStats: {
+      firstHalf: match5_pred_h1,
+      secondHalf: match5_pred_h2,
+      full: match5_pred_full,
+    },
+  },
+  {
+    id: 6,
+    date: "21/07",
+    time: "16:00",
+    homeTeam: "Caxias",
+    awayTeam: "Botafogo-PB",
+    homeScore: null,
+    awayScore: null,
+    isFinished: true,
+    predictedWinner: "Caxias",
+    predictedHomeScore: 1,
+    predictedAwayScore: 0,
+    serie: "C",
+    homeLineup: {
+      formation: "4-4-2",
+      starters: [
+        { id: 601, name: "Fabian Volpi", role: "GK", number: 1 },
+        { id: 602, name: "Marcelo", role: "RB", number: 2 },
+        { id: 603, name: "Dirceu", role: "RCB", number: 3 },
+        { id: 604, name: "Lucas Cunha", role: "LCB", number: 4 },
+        { id: 605, name: "Dudu M.", role: "LB", number: 6 },
+        { id: 606, name: "Barba", role: "CDM", number: 5, isMVP: true },
+        { id: 607, name: "Emerson R.", role: "LCM", number: 8 },
+        { id: 608, name: "Tomas B.", role: "RCM", number: 10, goals: 1 },
+        { id: 609, name: "Gabriel S.", role: "RW", number: 7 },
+        { id: 610, name: "Alvaro", role: "ST", number: 9, assists: 1 },
+        { id: 611, name: "Feijão", role: "ST2", number: 11, isFlop: true },
+      ],
+      substitutes: [],
+    },
+    awayLineup: {
+      formation: "4-3-3",
+      starters: [
+        { id: 620, name: "Dalton", role: "GK", number: 1 },
+        { id: 621, name: "Lenon", role: "RB", number: 2 },
+        { id: 622, name: "Reniê", role: "RCB", number: 4 },
+        { id: 623, name: "Wendel L.", role: "LCB", number: 3 },
+        { id: 624, name: "Evandro", role: "LB", number: 6 },
+        { id: 625, name: "Edmundo", role: "CDM", number: 8 },
+        { id: 626, name: "Thallyson", role: "LCM", number: 5 },
+        { id: 627, name: "Bruno L.", role: "RCM", number: 10, wasSubstituted: true },
+        { id: 628, name: "Dudu", role: "RW", number: 7 },
+        { id: 629, name: "Joãozinho", role: "LW", number: 11 },
+        { id: 630, name: "Pipico", role: "ST", number: 9 },
+      ],
+      substitutes: [
+        { id: 631, name: "Warley Jr", role: "SUB", number: 17, substitutedInFor: "Bruno L." },
+      ],
+    },
+    predictedPeriodStats: {
+      firstHalf: match6_pred_h1,
+      secondHalf: match6_pred_h2,
+      full: match6_pred_full,
+    },
+  },
+  {
+    id: 7,
+    date: "21/07",
+    time: "16:00",
+    homeTeam: "Novo Hamburgo",
+    awayTeam: "Hercílio Luz",
+    homeScore: null,
+    awayScore: null,
+    isFinished: false,
+    predictedWinner: "Hercílio Luz",
+    predictedHomeScore: 0,
+    predictedAwayScore: 1,
+    serie: "D",
+    homeLineup: {
+      formation: "4-2-3-1",
+      starters: [
+        { id: 701, name: "Lucas M.", role: "GK", number: 1 },
+        { id: 702, name: "Anilson", role: "RB", number: 2 },
+        { id: 703, name: "S. Dutra", role: "RCB", number: 3 },
+        { id: 704, name: "Marcão", role: "LCB", number: 4 },
+        { id: 705, name: "Raí", role: "LB", number: 6 },
+        { id: 706, name: "P. Vinicius", role: "RDM", number: 5 },
+        { id: 707, name: "Fraga", role: "LDM", number: 8, yellowCards: 1 },
+        { id: 708, name: "Dionathã", role: "MEI", number: 10, isFlop: true },
+        { id: 709, name: "Garraty", role: "RW", number: 7 },
+        { id: 710, name: "Robinho", role: "LW", number: 11 },
+        { id: 711, name: "Édipo", role: "ST", number: 9 },
+      ],
+      substitutes: [],
+    },
+    awayLineup: {
+      formation: "4-3-3",
+      starters: [
+        { id: 720, name: "Matheus", role: "GK", number: 1 },
+        { id: 721, name: "Cleiton", role: "RB", number: 2 },
+        { id: 722, name: "Wallace", role: "RCB", number: 4 },
+        { id: 723, name: "L. Kadu", role: "LCB", number: 3 },
+        { id: 724, name: "Kaike", role: "LB", number: 6 },
+        { id: 725, name: "I. T.", role: "CDM", number: 5 },
+        { id: 726, name: "Garrinsha", role: "LCM", number: 8 },
+        { id: 727, name: "Vitinho", role: "RCM", number: 10 },
+        { id: 728, name: "Adão", role: "RW", number: 7 },
+        { id: 729, name: "T. Galhardo", role: "LW", number: 11, assists: 1 },
+        { id: 730, name: "Caio M.", role: "ST", number: 9, goals: 1, isMVP: true },
+      ],
+      substitutes: [],
+    },
+    predictedPeriodStats: {
+      firstHalf: match7_pred_h1,
+      secondHalf: match7_pred_h2,
+      full: match7_pred_full,
+    },
+  },
+  {
+    id: 8,
+    date: "21/07",
+    time: "18:30",
+    homeTeam: "Atlético-MG",
+    awayTeam: "São Paulo",
+    homeScore: null,
+    awayScore: null,
+    isFinished: true,
+    predictedWinner: "Empate",
+    predictedHomeScore: 2,
+    predictedAwayScore: 2,
+    serie: "A",
+    homeLineup: {
+      formation: "4-3-3",
+      starters: [
+        { id: 801, name: "Everson", role: "GK", number: 1 },
+        { id: 802, name: "Saravia", role: "RB", number: 2 },
+        { id: 803, name: "B. Fuchs", role: "RCB", number: 3 },
+        { id: 804, name: "Jemerson", role: "LCB", number: 4 },
+        { id: 805, name: "G. Arana", role: "LB", number: 6, assists: 1 },
+        { id: 806, name: "Battaglia", role: "CDM", number: 5 },
+        { id: 807, name: "A. Franco", role: "LCM", number: 8 },
+        { id: 808, name: "Zaracho", role: "RCM", number: 10, goals: 1 },
+        { id: 809, name: "Scarpa", role: "RW", number: 7, isFlop: true },
+        { id: 810, name: "Paulinho", role: "LW", number: 11, goals: 1, isMVP: true, wasSubstituted: true },
+        { id: 811, name: "Hulk", role: "ST", number: 9, assists: 1 },
+      ],
+      substitutes: [
+        { id: 812, name: "Vargas", role: "SUB", number: 17, substitutedInFor: "Paulinho" },
+      ],
+    },
+    awayLineup: {
+      formation: "3-4-3",
+      starters: [
+        { id: 820, name: "Jandrei", role: "GK", number: 1 },
+        { id: 821, name: "Arboleda", role: "RCB", number: 5 },
+        { id: 822, name: "D. Costa", role: "CB", number: 4 },
+        { id: 823, name: "Ferraresi", role: "LCB", number: 3 },
+        { id: 824, name: "Igor V.", role: "RM", number: 2 },
+        { id: 825, name: "Alisson", role: "RCM", number: 8 },
+        { id: 826, name: "Luiz Gustavo", role: "LCM", number: 7, yellowCards: 2, redCards: 1 },
+        { id: 827, name: "W. Rato", role: "LM", number: 6 },
+        { id: 828, name: "Lucas Moura", role: "RW", number: 10, goals: 1 },
+        { id: 829, name: "Luciano", role: "LW", number: 11, goals: 1 },
+        { id: 830, name: "Calleri", role: "ST", number: 9, isFlop: true },
+      ],
+      substitutes: [],
+    },
+    predictedPeriodStats: {
+      firstHalf: match8_pred_h1,
+      secondHalf: match8_pred_h2,
+      full: match8_pred_full,
+    },
+  }
 ];
