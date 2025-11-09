@@ -260,8 +260,6 @@ const mockAwayLineupID2: Lineup = {
   ],
 };
 
-// Adicione este bloco ANTES do `const realMatchesDB = {`
-
 // --- FORMAÇÕES E DADOS REAIS ID 4 (Flamengo vs Palmeiras) ---
 const mockRealStatsID4: MatchStats = {
   possession: { home: 55, away: 45 },
@@ -838,9 +836,16 @@ const mockAwayLineupID8: Lineup = {
   ],
 };
 
+// --- IDs DAS LIGAS (Inventados para o mock) ---
+// Série A: 71
+// Série B: 72
+// Série C: 73
+// Série D: 74
+// ---------------------------------------------
+
 const realMatchesDB = {
   "1": {
-    // Fluminense vs Cruzeiro (ID 1 do mockMatches)
+    leagueId: 71, // <-- ID ADICIONADO
     apiMatch: {
       fixture: {
         id: 1,
@@ -859,7 +864,7 @@ const realMatchesDB = {
     awayLineup: mockAwayLineupID1,
   },
   "2": {
-    // Vasco vs Grêmio (ID 2 do mockMatches)
+    leagueId: 71, // <-- ID ADICIONADO
     apiMatch: {
       fixture: {
         id: 2,
@@ -878,7 +883,7 @@ const realMatchesDB = {
     awayLineup: mockAwayLineupID2,
   },
   "3": {
-    // Coritiba vs Goias (ID 3 do mockMatches)
+    leagueId: 72, // <-- ID ADICIONADO (Série B)
     apiMatch: {
       fixture: {
         id: 3,
@@ -896,9 +901,8 @@ const realMatchesDB = {
     homeLineup: undefined,
     awayLineup: undefined,
   },
-
   "4": {
-    // Flamengo vs Palmeiras (ID 4 do mockMatches)
+    leagueId: 71, // <-- ID ADICIONADO
     apiMatch: {
       fixture: {
         id: 4,
@@ -906,7 +910,7 @@ const realMatchesDB = {
         date: "2025-11-04T16:00:00-03:00",
       },
       teams: { home: { name: "Flamengo" }, away: { name: "Palmeiras" } },
-      goals: { home: 1, away: 0 }, // Real: 1x0, AI previu 2x1
+      goals: { home: 1, away: 0 },
     },
     realPeriodStats: {
       firstHalf: null,
@@ -917,7 +921,7 @@ const realMatchesDB = {
     awayLineup: mockAwayLineupID4,
   },
   "5": {
-    // Santos vs Sport Recife (ID 5 do mockMatches)
+    leagueId: 72, // <-- ID ADICIONADO (Série B)
     apiMatch: {
       fixture: {
         id: 5,
@@ -925,7 +929,7 @@ const realMatchesDB = {
         date: "2025-11-04T18:30:00-03:00",
       },
       teams: { home: { name: "Santos" }, away: { name: "Sport Recife" } },
-      goals: { home: 2, away: 1 }, // Real: 2x1, AI previu 1x1
+      goals: { home: 2, away: 1 },
     },
     realPeriodStats: {
       firstHalf: null,
@@ -936,7 +940,7 @@ const realMatchesDB = {
     awayLineup: mockAwayLineupID5,
   },
   "6": {
-    // Caxias vs Botafogo-PB (ID 6 do mockMatches)
+    leagueId: 73, // <-- ID ADICIONADO (Série C)
     apiMatch: {
       fixture: {
         id: 6,
@@ -944,7 +948,7 @@ const realMatchesDB = {
         date: "2025-11-05T16:00:00-03:00",
       },
       teams: { home: { name: "Caxias" }, away: { name: "Botafogo-PB" } },
-      goals: { home: 1, away: 0 }, // Real: 1x0, AI previu 1x0 (Acertou!)
+      goals: { home: 1, away: 0 },
     },
     realPeriodStats: {
       firstHalf: null,
@@ -955,7 +959,7 @@ const realMatchesDB = {
     awayLineup: mockAwayLineupID6,
   },
   "7": {
-    // Novo Hamburgo vs Hercílio Luz (ID 7 do mockMatches)
+    leagueId: 74, // <-- ID ADICIONADO (Série D)
     apiMatch: {
       fixture: {
         id: 7,
@@ -966,9 +970,8 @@ const realMatchesDB = {
         home: { name: "Novo Hamburgo" },
         away: { name: "Hercílio Luz" },
       },
-      goals: { home: 0, away: 0 }, // Real: 0x0, AI previu 0x1
+      goals: { home: 0, away: 0 },
     },
-    // Jogo da Série D, simulando que não temos stats reais ainda
     realPeriodStats: {
       firstHalf: null,
       secondHalf: null,
@@ -978,7 +981,7 @@ const realMatchesDB = {
     awayLineup: mockAwayLineupID7,
   },
   "8": {
-    // Atlético-MG vs São Paulo (ID 8 do mockMatches)
+    leagueId: 71, // <-- ID ADICIONADO
     apiMatch: {
       fixture: {
         id: 8,
@@ -986,7 +989,7 @@ const realMatchesDB = {
         date: "2025-11-05T18:30:00-03:00",
       },
       teams: { home: { name: "Atlético-MG" }, away: { name: "São Paulo" } },
-      goals: { home: 3, away: 1 }, // Real: 3x1, AI previu 2x2
+      goals: { home: 3, away: 1 },
     },
     realPeriodStats: {
       firstHalf: null,
@@ -1003,11 +1006,16 @@ export const fetchMatchesByLeague = async (
   leagueId: number,
   season: number
 ) => {
-  console.warn("USANDO DADOS MOCKADOS (REAIS): fetchMatchesByLeague");
+  console.warn(`USANDO DADOS MOCKADOS (REAIS): fetchMatchesByLeague para ID ${leagueId}`);
   await new Promise((res) => setTimeout(res, 500));
-  // Retorna uma lista de jogos "reais"
-  return Object.values(realMatchesDB).map((match) => ({
-    // Retorna os IDs corretos (1, 2, 3)
+  
+  // --- LÓGICA DE FILTRO CORRIGIDA ---
+  const allMatches = Object.values(realMatchesDB);
+  const filteredMatches = allMatches.filter(match => match.leagueId === leagueId);
+  // ---------------------------------
+
+  // Retorna uma lista de jogos "reais" filtrados
+  return filteredMatches.map((match) => ({
     fixture: match.apiMatch.fixture,
     teams: match.apiMatch.teams,
     goals: match.apiMatch.goals,
@@ -1022,7 +1030,7 @@ export const fetchMatchDetails = async (fixtureId: number) => {
   const matchData = realMatchesDB[fixtureId];
 
   if (!matchData) {
-    // Retorna um fallback se o ID não for 1, 2 ou 3
+    // Retorna um fallback se o ID não for encontrado
     return {
       apiMatch: {
         fixture: {
@@ -1046,5 +1054,8 @@ export const fetchMatchDetails = async (fixtureId: number) => {
     };
   }
 
-  return matchData;
+  // Remove o 'leagueId' antes de retornar para MatchDetails,
+  // pois essa tela não precisa dele.
+  const { leagueId, ...restOfMatchData } = matchData;
+  return restOfMatchData;
 };
