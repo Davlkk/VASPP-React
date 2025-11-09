@@ -2,8 +2,7 @@ import { Player } from "../types/match";
 import gol from "../pictures/gol.svg";
 import ppg from "../pictures/chuteira.png";
 import { ArrowUpCircle, ArrowDownCircle } from 'lucide-react';
-// 1. IMPORTAR OS NOVOS TEMPLATES DE POSIÇÃO
-import { HOME_433, AWAY_433, Formation } from "../data/formationPositions";
+import { homeFormations, awayFormations, FormationTemplate } from "../data/formationPositions";
 
 interface MatchFieldProps {
   homeTeam: string;
@@ -18,6 +17,7 @@ interface MatchFieldProps {
   awayFormation: string;
 }
 
+// --- (Sub-componentes EventIcon e CardIcon não mudam) ---
 const PlayerEventIcons = ({ player }: { player: Player }) => {
   return (
     <div className="flex gap-1">
@@ -60,12 +60,13 @@ const CardIcon = ({ yellowCards = 0, redCards = 0 }: { yellowCards?: number; red
   if (yellowCards === 1) {
     return (
       <div className="w-4 h-5 bg-yellow-400 rounded-sm border border-black/30" title="Cartão amarelo"></div>
-
     );
   }
   return null;
 };
+// --- (Fim dos sub-componentes EventIcon e CardIcon) ---
 
+// --- (Sub-componente SubstituteList não muda) ---
 const SubstituteList = ({ title, players }: { title: string, players: Player[] }) => (
   <div className="bg-black/20 p-4 rounded-lg">
     <h4 className="text-white/60 font-semibold mb-3 text-sm">{title}</h4>
@@ -115,7 +116,7 @@ function MatchField({
   awayFormation,
 }: MatchFieldProps) {
 
-  const renderPlayer = (player: Player, isHome: boolean, formation: Formation) => {
+  const renderPlayer = (player: Player, isHome: boolean, formationTemplate: FormationTemplate) => {
     let circleClassName = "bg-white/90 border-[3px] border-white/30";
     if (player.isMVP) {
       circleClassName = "bg-white/90 border-4 border-green-400";
@@ -123,7 +124,7 @@ function MatchField({
       circleClassName = "bg-white/90 border-4 border-red-500";
     }
 
-    const position = formation[player.role] || { x: 50, y: 50 };
+    const position = formationTemplate[player.role] || formationTemplate['SUB'] || { x: 50, y: 50 };
     
     if (player.role === 'SUB') {
       return null;
@@ -132,10 +133,15 @@ function MatchField({
     return (
       <div
         key={player.id}
-        className="absolute transform -translate-x-1/2 -translate-y-1/2"
+        // --- CORREÇÃO AQUI ---
+        // Removida a classe "transform". As classes "-translate-x-1/2"
+        // e "-translate-y-1/2" já aplicam o transform necessário.
+        // Adicionar "transform" explicitamente estava a anular as outras.
+        className="absolute -translate-x-1/2 -translate-y-1/2"
+        // ---------------------
         style={{
-          left: `${100 - position.y}%`,
-          top: `${position.x}%`,
+          left: `${100 - position.y}%`, // O 'y' do mock (95) vira 'left: 5%' (Casa)
+          top: `${position.x}%`,      // O 'x' do mock (50) vira 'top: 50%' (Meio)
         }}
       >
         <div className="absolute -top-7 left-1/2 transform -translate-x-1/2 flex gap-1 z-20">
@@ -162,8 +168,10 @@ function MatchField({
     );
   };
 
-  const homeFormationTemplate = (homeFormation === "4-3-3") ? HOME_433 : HOME_433;
-  const awayFormationTemplate = (awayFormation === "4-3-3" || awayFormation === "4-4-2") ? AWAY_433 : AWAY_433;
+  // Procura o template da formação (ex: "4-3-3") no mapa de formações
+  // Se não encontrar, usa o 4-3-3 como padrão
+  const homeTemplate = homeFormations[homeFormation] || homeFormations["4-3-3"];
+  const awayTemplate = awayFormations[awayFormation] || awayFormations["4-3-3"];
 
   return (
     <div className="w-full">
@@ -185,8 +193,8 @@ function MatchField({
       <div className="relative w-full aspect-[4/3] border-[3px] border-white/30 rounded-lg overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-white/40 transform -translate-x-1/2"></div>
-         <div className="absolute left-1/2 top-1/2 w-24 h-24 border-[3px] border-white/40 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
-       <div className="absolute left-1/2 top-1/2 w-2 h-2 bg-white/40 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
+          <div className="absolute left-1/2 top-1/2 w-24 h-24 border-[3px] border-white/40 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
+          <div className="absolute left-1/2 top-1/2 w-2 h-2 bg-white/40 rounded-full transform -translate-x-1/2 -translate-y-1/2"></div>
           <div className="absolute left-0 top-1/2 w-16 h-40 border-[3px] border-white/40 border-l-0 transform -translate-y-1/2"></div>
           <div className="absolute left-0 top-1/2 w-8 h-20 border-[3px] border-white/40 border-l-0 transform -translate-y-1/2"></div>
           <div className="absolute right-0 top-1/2 w-16 h-40 border-[3px] border-white/40 border-r-0 transform -translate-y-1/2"></div>
@@ -194,56 +202,64 @@ function MatchField({
           <div className="absolute left-0 top-1/2 w-1.5 h-16 bg-white/60 transform -translate-y-1/2"></div>
           <div className="absolute right-0 top-1/2 w-1.5 h-16 bg-white/60 transform -translate-y-1/2"></div>
         </div>
-        {homeStarters.map((player) => renderPlayer(player, true, homeFormationTemplate))}
-        {awayStarters.map((player) => renderPlayer(player, false, awayFormationTemplate))}
+        {homeStarters.map((player) => renderPlayer(player, true, homeTemplate))}
+        {awayStarters.map((player) => renderPlayer(player, false, awayTemplate))}
       </div>
 
+      {/* Lista de Reservas */}
       <div className="mt-6 grid grid-cols-2 gap-4">
         <SubstituteList title={`Reservas (${homeTeam})`} players={homeSubstitutes} />
         <SubstituteList title={`Reservas (${awayTeam})`} players={awaySubstitutes} />
       </div>
 
-      <div className="mt-6 grid grid-cols-3 gap-3 items-start text-sm">
-        <div className="flex items-center gap-2">
-          <div className="w-5 h-5 bg-white rounded-full border-4 border-red-500"></div>
-          <span className="text-white/80">Pode zikar</span>
+      <div className="mt-6 grid grid-cols-4 gap-3 items-start text-sm">
+
+      <div className="flex items-center gap-2">
+          <div className="w-5 h-5 bg-white rounded-full border-4 border-green-400"></div>
+          <span className="text-white/80">Pode mitar</span>
         </div>
+
+
         <div className="flex items-center gap-2">
           <div className="w-5 h-5 bg-white rounded-full flex items-center justify-center">
             <img src={gol} alt="gol" />
           </div>
           <span className="text-white/80">Gol</span>
         </div>
+
         <div className="flex items-center gap-2">
           <div className="w-4 h-5 bg-yellow-400 rounded-sm"></div>
           <span className="text-white/80">Cartão amarelo</span>
         </div>
-        <div className="flex items-center gap-2">
 
-          <div className="w-5 h-5 bg-white rounded-full border-4 border-green-400"></div>
-          <span className="text-white/80">Pode mitar</span>
-        </div>
+        <div className="flex items-center gap-2">
+          <ArrowUpCircle className="w-5 h-5 text-green-400" />
+          <span className="text-white/80">Entrou</span>
+        </div>
+        
+          <div className="flex items-center gap-2">
+            <div className="w-5 h-5 bg-white rounded-full border-4 border-red-500"></div>
+            <span className="text-white/80">Pode zikar</span>
+          </div>
+
         <div className="flex items-center gap-2">
           <div className="w-5 h-5 bg-gray-400 rounded-full flex items-center justify-center">
             <img src={ppg} alt="ppg" className="h-4 w-auto" />
-          </div>
+      	  </div>
           <span className="text-white/80">Passe para gol</span>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="w-4 h-5 bg-red-500 rounded-sm"></div>
 
+      	<div className="flex items-center gap-2">
+          <div className="w-4 h-5 bg-red-500 rounded-sm"></div>
           <span className="text-white/80">Cartão vermelho</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <ArrowUpCircle className="w-5 h-5 text-green-400" />
-          <span className="text-white/80">Entrou</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <ArrowDownCircle className="w-5 h-5 text-red-400" />
-          <span className="text-white/80">Saiu</span>
-        </div>
+      	</div>
+
+      <div className="flex items-center gap-2">
+        <ArrowDownCircle className="w-5 h-5 text-red-400" />
+        <span className="text-white/80">Saiu</span>
       </div>
     </div>
+  </div>
   );
 }
 
