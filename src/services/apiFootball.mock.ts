@@ -60,7 +60,7 @@ const mockHomeLineupID1: Lineup = {
       number: 44,
       substitutedInFor: "Ganso",
     },
-    { id: 203, name: "J. Kennedy", role: "SUB", number: 9, goals: 1 },
+    { id: 203, name: "J. Kennedy", role: "SUB", number: 19},
     { id: 204, name: "Lima", role: "SUB", number: 45 },
     { id: 205, name: "Guga", role: "SUB", number: 23 },
   ],
