@@ -1,27 +1,17 @@
-// src/services/apiFootball.ts
-
+// aqui deveria ser pego informações da api, mas não funcionou, então deixei pegando dos dados mockados, simulando uma api
 import { MatchStats, PeriodData, Lineup, Player } from '../types/match';
 
-// 1. Pega as NOVAS chaves seguras do .env
 const API_KEY = import.meta.env.VITE_APIFOOTBALL_KEY;
 const API_HOST = import.meta.env.VITE_APIFOOTBALL_HOST;
 
-// Teste para garantir que as variáveis foram carregadas
 console.log("API Host Carregado:", API_HOST);
 console.log("API Key Carregada:", API_KEY ? "Sim" : "Não");
 
-// 2. O Header de autenticação MUDOU
 const HEADERS = {
-  'x-apisports-key': API_KEY, // Este é o header do dashboard oficial
+  'x-apisports-key': API_KEY,
 };
 
-// 3. A URL base agora inclui o host E O PROTOCOLO (https://)
 const BASE_URL = `https://${API_HOST}`;
-
-// ====================================================================
-// FUNÇÕES "ADAPTADORAS" (MAPPERS)
-// (Estas funções são IDÊNTICAS ao tutorial anterior)
-// ====================================================================
 
 function adaptApiStats(
   apiStats: any[],
@@ -108,14 +98,10 @@ function adaptApiLineup(
   };
 }
 
-// ====================================================================
-// FUNÇÕES DE BUSCA (FETCH)
-// ====================================================================
-
 export const fetchMatchesByLeague = async (leagueId: number, season: number) => {
-  // A URL mudou para usar a BASE_URL
+ 
   const response = await fetch(
-    `${BASE_URL}/fixtures?league=${leagueId}&season=${season}`, // <-- ESTA LINHA USA BASE_URL
+    `${BASE_URL}/fixtures?league=${leagueId}&season=${season}`,
     { headers: HEADERS }
   );
   if (!response.ok) throw new Error('Falha ao buscar partidas');
@@ -125,17 +111,17 @@ export const fetchMatchesByLeague = async (leagueId: number, season: number) => 
 
 export const fetchMatchDetails = async (fixtureId: number) => {
   const fixturePromise = fetch(
-    `${BASE_URL}/fixtures?id=${fixtureId}`, // <-- ESTA LINHA USA BASE_URL
+    `${BASE_URL}/fixtures?id=${fixtureId}`,
     { headers: HEADERS }
   ).then(res => res.json());
 
   const statsPromise = fetch(
-    `${BASE_URL}/fixtures/statistics?fixture=${fixtureId}`, // <-- ESTA LINHA USA BASE_URL
+    `${BASE_URL}/fixtures/statistics?fixture=${fixtureId}`,
     { headers: HEADERS }
   ).then(res => res.json());
   
   const playersPromise = fetch(
-    `${BASE_URL}/fixtures/players?fixture=${fixtureId}`, // <-- ESTA LINHA USA BASE_URL
+    `${BASE_URL}/fixtures/players?fixture=${fixtureId}`,
     { headers: HEADERS }
   ).then(res => res.json());
 

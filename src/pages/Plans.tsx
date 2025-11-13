@@ -42,7 +42,6 @@ const plansData = [
   },
 ];
 
-// Componente da Página Principal
 function Plans() {
   const [activePlan, setActivePlan] = useState<string | null>("PROFISSIONAL");
 

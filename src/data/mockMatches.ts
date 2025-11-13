@@ -1,6 +1,3 @@
-// src/data/mockMatches.ts
-// Fonte de dados exclusiva para "Previsão AI"
-
 import { Match, MatchStats, PeriodData } from "../types/match";
 
 // --- Função Auxiliar para Stats ---
@@ -255,7 +252,7 @@ export const mockMatches: Match[] = [
     predictedAwayScore: 3,
     serie: "A",
     homeLineup: {
-      formation: "4-3-3", // <-- Esta string será usada para buscar o template
+      formation: "4-3-3",
       starters: [
         { id: 1, name: "Fábio", role: "GK", number: 1 },
         { id: 2, name: "Samuel Xavier", role: "RB", number: 2, yellowCards: 1 },
@@ -305,7 +302,7 @@ export const mockMatches: Match[] = [
       ],
     },
     awayLineup: {
-      formation: "4-3-3", // <-- Esta string será usada para buscar o template
+      formation: "4-3-3", 
       starters: [
         { id: 12, name: "Cássio", role: "GK", number: 1 },
         { id: 13, name: "William", role: "RB", number: 2 },
@@ -400,7 +397,7 @@ export const mockMatches: Match[] = [
         },
         { id: 109, name: "Rayan", role: "RW", number: 77 },
         { id: 110, name: "Nuno Moreira", role: "LW", number: 17 },
-        { id: 111, name: "Pablo Vegetti", role: "ST", number: 99, isFlop: true },
+        { id: 111, name: "Pablo Vegetti", role: "ST", number: 99},
       ],
       substitutes: [
         {
@@ -443,7 +440,6 @@ export const mockMatches: Match[] = [
           name: "Edenilson",
           role: "LM",
           number: 8,
-          isMVP: true,
           goals: 1,
           wasSubstituted: true,
         },
@@ -669,16 +665,16 @@ export const mockMatches: Match[] = [
     predictedAwayScore: 1,
     serie: "D",
     homeLineup: {
-      formation: "4-2-3-1",
+      formation: "4-3-3",
       starters: [
         { id: 701, name: "Lucas M.", role: "GK", number: 1 },
         { id: 702, name: "Anilson", role: "RB", number: 2 },
         { id: 703, name: "S. Dutra", role: "RCB", number: 3 },
         { id: 704, name: "Marcão", role: "LCB", number: 4 },
         { id: 705, name: "Raí", role: "LB", number: 6 },
-        { id: 706, name: "P. Vinicius", role: "RDM", number: 5 },
-        { id: 707, name: "Fraga", role: "LDM", number: 8, yellowCards: 1 },
-        { id: 708, name: "Dionathã", role: "MEI", number: 10, isFlop: true },
+        { id: 706, name: "P. Vinicius", role: "CDM", number: 5 },
+        { id: 707, name: "Fraga", role: "LCM", number: 8, yellowCards: 1 },
+        { id: 708, name: "Dionathã", role: "RCM", number: 10, isFlop: true },
         { id: 709, name: "Garraty", role: "RW", number: 7 },
         { id: 710, name: "Robinho", role: "LW", number: 11 },
         { id: 711, name: "Édipo", role: "ST", number: 9 },

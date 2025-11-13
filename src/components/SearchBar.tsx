@@ -1,4 +1,3 @@
-// src/components/SearchBar.tsx
 import { Search } from 'lucide-react';
 
 interface SearchBarProps {
