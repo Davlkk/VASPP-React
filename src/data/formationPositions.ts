@@ -1,11 +1,6 @@
 type Position = { x: number; y: number };
 
-// Define um tipo para um template de formação (um mapa de 'roles' para Posições)
 export type FormationTemplate = Record<string, Position>;
-
-// Posições no campo: (GK) Goleiro, (RB) Lateral Direito, (LCB) Zagueiro Esquerdo,
-// (RCB) Zagueiro Direito, (LB) Lateral Esquerdo, (CDM) Volante, (LCM) Meia Esquerdo,
-// (RCM) Meia Direito, (RW) Ponta Direita, (LW) Ponta Esquerda, (ST) Atacante
 
 // TEMPLATES HOME
 // --- TEMPLATE 4-3-3 ---
@@ -138,8 +133,6 @@ export const AWAY_4231: FormationTemplate = {
 };
 
 // --- MAPA DE FORMAÇÕES ---
-// Mapeia a string 'formation' (ex: "4-3-3") para o template de posições
-// Isto permite que você simplesmente mude a string no mock.
 export const homeFormations: Record<string, FormationTemplate> = {
   "4-3-3": HOME_433,
   "4-4-2": HOME_442,

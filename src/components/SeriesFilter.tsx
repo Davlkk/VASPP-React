@@ -1,5 +1,3 @@
-// src/components/SeriesFilter.tsx
-
 interface SeriesFilterProps {
   series: string[];
   selected: string;

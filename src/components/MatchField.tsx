@@ -17,7 +17,6 @@ interface MatchFieldProps {
   awayFormation: string;
 }
 
-// --- (Sub-componentes EventIcon e CardIcon não mudam) ---
 const PlayerEventIcons = ({ player }: { player: Player }) => {
   return (
     <div className="flex gap-1">
@@ -64,9 +63,7 @@ const CardIcon = ({ yellowCards = 0, redCards = 0 }: { yellowCards?: number; red
   }
   return null;
 };
-// --- (Fim dos sub-componentes EventIcon e CardIcon) ---
 
-// --- (Sub-componente SubstituteList não muda) ---
 const SubstituteList = ({ title, players }: { title: string, players: Player[] }) => (
   <div className="bg-black/20 p-4 rounded-lg">
     <h4 className="text-white/60 font-semibold mb-3 text-sm">{title}</h4>
@@ -133,12 +130,7 @@ function MatchField({
     return (
       <div
         key={player.id}
-        // --- CORREÇÃO AQUI ---
-        // Removida a classe "transform". As classes "-translate-x-1/2"
-        // e "-translate-y-1/2" já aplicam o transform necessário.
-        // Adicionar "transform" explicitamente estava a anular as outras.
-        className="absolute -translate-x-1/2 -translate-y-1/2"
-        // ---------------------
+        className="absolute -translate-x-1/2 -translate-y-1/2" 
         style={{
           left: `${100 - position.y}%`, // O 'y' do mock (95) vira 'left: 5%' (Casa)
           top: `${position.x}%`,      // O 'x' do mock (50) vira 'top: 50%' (Meio)

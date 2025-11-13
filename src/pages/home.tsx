@@ -1,4 +1,3 @@
-// src/pages/home.tsx
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "../components/SearchBar";
@@ -8,9 +7,8 @@ import Background from "../components/Background";
 import Header from "../components/Header";
 import { Match } from "../types/match";
 import { mockMatches } from "../data/mockMatches";
-import { fetchMatchesByLeague } from "../services/apiFootball.mock"; // <-- Voltamos a usar este
+import { fetchMatchesByLeague } from "../services/apiFootball.mock";
 
-// --- CORREÇÃO: Mapeamento completo das Séries ---
 const seriesMap: Record<string, number> = {
   "Brasileirão Série A": 71,
   "Brasileirão Série B": 72,
@@ -18,65 +16,79 @@ const seriesMap: Record<string, number> = {
   "Brasileirão Série D": 74,
 };
 
-// Assumindo que a temporada é a mesma para todos
-const CURRENT_SEASON = 2025; 
-
-// ====================================================================
+const CURRENT_SEASON = 2025;
 
 function Home() {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
-  // Começa selecionando a Série A por padrão
-  const [selectedSerie, setSelectedSerie] = useState("Brasileirão Série A");
+  
+  const [selectedSerie, setSelectedSerie] = useState("Todos");
+  
   const [matches, setMatches] = useState<Match[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   // Este useEffect será executado sempre que 'selectedSerie' mudar
   useEffect(() => {
     const loadMatches = async () => {
-      // --- LÓGICA RESTAURADA E CORRIGIDA ---
-      
       setIsLoading(true);
-      
-      // 1. Pega o ID da liga (ex: 71) do seriesMap
-      const serieId = seriesMap[selectedSerie];
-      
-      if (!serieId) {
-        console.error(`ID da série não encontrado para: ${selectedSerie}`);
-        setIsLoading(false);
-        setMatches([]);
-        return;
-      }
+      let allApiMatches: any[] = []; // Array para guardar todos os resultados
 
       try {
-        // 2. BUSCA DADOS REAIS DA API (AGORA FILTRADA CORRETAMENTE)
-        const apiMatches = await fetchMatchesByLeague(serieId, CURRENT_SEASON);
+        if (selectedSerie === "Todos") {
         
-        // 3. ADAPTA E MESCLA COM OS MOCKS
-        const adaptedMatches: Match[] = apiMatches.map((apiMatch: any) => {
+          const allLeagueIds = Object.values(seriesMap);
+
+
+          const fetchPromises = allLeagueIds.map(id =>
+            fetchMatchesByLeague(id, CURRENT_SEASON)
+          );
+
+     
+          const resultsPerLeague = await Promise.all(fetchPromises);
+
+          
+          allApiMatches = resultsPerLeague.flat();
+
+        } else {
+          
+          const serieId = seriesMap[selectedSerie];
+          
+          if (!serieId) {
+            console.error(`ID da série não encontrado para: ${selectedSerie}`);
+            setMatches([]); // Limpa os jogos se a série for inválida
+            setIsLoading(false);
+            return;
+          }
+
+         
+          allApiMatches = await fetchMatchesByLeague(serieId, CURRENT_SEASON);
+        }
+
+       
+        
+        const adaptedMatches: Match[] = allApiMatches.map((apiMatch: any) => {
           
           const homeTeamName = apiMatch.teams.home.name;
           const awayTeamName = apiMatch.teams.away.name;
 
-          // 4. PROCURA A PREVISÃO NO SEU ARQUIVO MOCK
-          // (Esta lógica de "match" de nomes é importante)
+          // Procura a previsão
           const mockPrediction = mockMatches.find(
             (m) => 
               (m.homeTeam === homeTeamName && m.awayTeam === awayTeamName)
           );
 
-          // Pega a letra da série (A, B, C, D) do mock, já que é a fonte da verdade
+          // Pega a letra da série (A, B, C, D) do mock
           const serieLetter = mockPrediction?.serie || 'A'; // Padrão 'A' se não achar
 
           return {
-            // --- Dados Reais da API ---
+          
             id: apiMatch.fixture.id,
             date: new Date(apiMatch.fixture.date).toLocaleDateString('pt-BR'),
             time: new Date(apiMatch.fixture.date).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
             homeTeam: homeTeamName,
             awayTeam: awayTeamName,
-            homeScore: apiMatch.goals.home, // <-- O placar REAL
-            awayScore: apiMatch.goals.away, // <-- O placar REAL
+            homeScore: apiMatch.goals.home,
+            awayScore: apiMatch.goals.away,
             isFinished: apiMatch.fixture.status.short === 'FT',
             serie: serieLetter,
 
@@ -84,9 +96,6 @@ function Home() {
             predictedWinner: mockPrediction ? mockPrediction.predictedWinner : 'N/A',
             predictedHomeScore: mockPrediction ? mockPrediction.predictedHomeScore : 0,
             predictedAwayScore: mockPrediction ? mockPrediction.predictedAwayScore : 0,
-            
-            // (Não precisamos das stats e lineups completas na Home)
-            // predictedPeriodStats: mockPrediction ? mockPrediction.predictedPeriodStats : undefined,
           };
         });
         
@@ -100,7 +109,7 @@ function Home() {
     };
 
     loadMatches();
-  }, [selectedSerie]); // A dependência [selectedSerie] está correta
+  }, [selectedSerie]);
 
   const handleMatchClick = (matchId: number) => {
     navigate(`/match/${matchId}`);
@@ -113,8 +122,9 @@ function Home() {
       match.awayTeam.toLowerCase().includes(searchTerm.toLowerCase())
   );
   
-  // A lista de botões do filtro
+  
   const seriesList = [
+    "Todos",
     "Brasileirão Série A",
     "Brasileirão Série B",
     "Brasileirão Série C",

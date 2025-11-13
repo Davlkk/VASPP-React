@@ -1,4 +1,3 @@
-
 import { ChevronRight } from "lucide-react";
 import { Match } from "../types/match";
 

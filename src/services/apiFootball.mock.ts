@@ -1,6 +1,6 @@
 import { MatchStats, PeriodData, Lineup } from "../types/match";
 
-// --- MOCK DE DADOS REAIS (PARA A ABA "REAL") ---
+// --- MOCK DE DADOS REAIS ---
 
 // FORMAÇÕES E DADOS DOS TIMES COM ID 1
 const mockRealStatsID1: MatchStats = {
@@ -69,12 +69,12 @@ const mockAwayLineupID1: Lineup = {
   formation: "4-4-2",
   starters: [
     { id: 112, name: "Cássio", role: "GK", number: 1 },
-    { id: 113, name: "William", role: "LB", number: 2 }, // Papel 4-4-2
-    { id: 114, name: "Zé Ivaldo", role: "LCB", number: 3 }, // Papel 4-4-2
-    { id: 115, name: "João Marcelo", role: "RCB", number: 4 }, // Papel 4-4-2
-    { id: 116, name: "Marlon", role: "RB", number: 5 }, // Papel 4-4-2
-    { id: 117, name: "Lucas Romero", role: "CDM", number: 6 }, // Papel 4-4-2
-    { id: 118, name: "Matheus Henrique", role: "ST2", number: 7, goals: 1 }, // Papel 4-4-2
+    { id: 113, name: "William", role: "LB", number: 2 },
+    { id: 114, name: "Zé Ivaldo", role: "LCB", number: 3 },
+    { id: 115, name: "João Marcelo", role: "RCB", number: 4 },
+    { id: 116, name: "Marlon", role: "RB", number: 5 },
+    { id: 117, name: "Lucas Romero", role: "CDM", number: 6 },
+    { id: 118, name: "Matheus Henrique", role: "ST2", number: 7, goals: 1 },
     {
       id: 119,
       name: "Matheus Pereira",
@@ -84,10 +84,10 @@ const mockAwayLineupID1: Lineup = {
       goals: 2,
       assists: 1,
       wasSubstituted: true,
-    }, // Papel 4-4-2
-    { id: 120, name: "Gabriel Veron", role: "LW", number: 9 }, // Papel 4-4-2
-    { id: 121, name: "Dinenno", role: "ST", number: 10 }, // Papel 4-4-2
-    { id: 122, name: "Arthur Gomes", role: "RW", number: 11 }, // Papel 4-4-2
+    },
+    { id: 120, name: "Gabriel Veron", role: "LW", number: 9 },
+    { id: 121, name: "Dinenno", role: "ST", number: 10 },
+    { id: 122, name: "Arthur Gomes", role: "RW", number: 11 },
   ],
   substitutes: [
     {
@@ -138,13 +138,12 @@ const mockHomeLineupID2: Lineup = {
       role: "LCB",
       number: 43,
       goals: 1,
-      isMVP: true,
     },
     { id: 105, name: "Lucas Piton", role: "LB", number: 6 },
     { id: 106, name: "Hugo Moura", role: "CDM", number: 25 },
     { id: 107, name: "Tchê Tchê", role: "LCM", number: 3 },
     { id: 108, name: "David", role: "RCM", number: 7, wasSubstituted: true },
-    { id: 109, name: "Rayan", role: "RW", number: 77, isFlop: true },
+    { id: 109, name: "Rayan", role: "RW", number: 77 },
     { id: 110, name: "Nuno Moreira", role: "LW", number: 17 },
     { id: 111, name: "Pablo Vegetti", role: "ST", number: 99 },
   ],
@@ -630,19 +629,19 @@ const mockRealStatsID7: MatchStats = {
   freeKicks: { home: 16, away: 18 },
 };
 const mockHomeLineupID7: Lineup = {
-  formation: "4-2-3-1",
+  formation: "4-3-3",
   starters: [
     { id: 701, name: "Lucas M.", role: "GK", number: 1 },
     { id: 702, name: "Anilson", role: "RB", number: 2, yellowCards: 1 },
     { id: 703, name: "S. Dutra", role: "RCB", number: 3 },
     { id: 704, name: "Marcão", role: "LCB", number: 4 },
     { id: 705, name: "Raí", role: "LB", number: 6 },
-    { id: 706, name: "P. Vinicius", role: "RDM", number: 5, yellowCards: 1 },
-    { id: 707, name: "Fraga", role: "LDM", number: 8 },
+    { id: 706, name: "P. Vinicius", role: "CDM", number: 5, yellowCards: 1 },
+    { id: 707, name: "Fraga", role: "LCM", number: 8 },
     {
       id: 708,
       name: "Dionathã",
-      role: "MEI",
+      role: "RCM",
       number: 10,
       isFlop: true,
       wasSubstituted: true,
@@ -669,16 +668,16 @@ const mockHomeLineupID7: Lineup = {
   ],
 };
 const mockAwayLineupID7: Lineup = {
-  formation: "4-3-3",
+  formation: "4-2-3-1",
   starters: [
     { id: 720, name: "Matheus", role: "GK", number: 1 },
     { id: 721, name: "Cleiton", role: "RB", number: 2 },
     { id: 722, name: "Wallace", role: "RCB", number: 4, yellowCards: 1 },
     { id: 723, name: "L. Kadu", role: "LCB", number: 3 },
     { id: 724, name: "Kaike", role: "LB", number: 6 },
-    { id: 725, name: "I. T.", role: "CDM", number: 5 },
-    { id: 726, name: "Garrinsha", role: "LCM", number: 8, isMVP: true },
-    { id: 727, name: "Vitinho", role: "RCM", number: 10, wasSubstituted: true },
+    { id: 725, name: "I. T.", role: "LDM", number: 5 },
+    { id: 726, name: "Garrinsha", role: "RDM", number: 8, isMVP: true },
+    { id: 727, name: "Vitinho", role: "MEI", number: 10, wasSubstituted: true },
     { id: 728, name: "Adão", role: "RW", number: 7, wasSubstituted: true },
     { id: 729, name: "T. Galhardo", role: "LW", number: 11, yellowCards: 1 },
     { id: 730, name: "Caio M.", role: "ST", number: 9, isFlop: true },
@@ -836,7 +835,7 @@ const mockAwayLineupID8: Lineup = {
   ],
 };
 
-// --- IDs DAS LIGAS (Inventados para o mock) ---
+// --- IDs DAS LIGAS ---
 // Série A: 71
 // Série B: 72
 // Série C: 73
@@ -845,7 +844,7 @@ const mockAwayLineupID8: Lineup = {
 
 const realMatchesDB = {
   "1": {
-    leagueId: 71, // <-- ID ADICIONADO
+    leagueId: 71,
     apiMatch: {
       fixture: {
         id: 1,
@@ -864,7 +863,7 @@ const realMatchesDB = {
     awayLineup: mockAwayLineupID1,
   },
   "2": {
-    leagueId: 71, // <-- ID ADICIONADO
+    leagueId: 71,
     apiMatch: {
       fixture: {
         id: 2,
@@ -883,7 +882,7 @@ const realMatchesDB = {
     awayLineup: mockAwayLineupID2,
   },
   "3": {
-    leagueId: 72, // <-- ID ADICIONADO (Série B)
+    leagueId: 72,
     apiMatch: {
       fixture: {
         id: 3,
@@ -902,7 +901,7 @@ const realMatchesDB = {
     awayLineup: undefined,
   },
   "4": {
-    leagueId: 71, // <-- ID ADICIONADO
+    leagueId: 71,
     apiMatch: {
       fixture: {
         id: 4,
@@ -921,7 +920,7 @@ const realMatchesDB = {
     awayLineup: mockAwayLineupID4,
   },
   "5": {
-    leagueId: 72, // <-- ID ADICIONADO (Série B)
+    leagueId: 72,
     apiMatch: {
       fixture: {
         id: 5,
@@ -940,7 +939,7 @@ const realMatchesDB = {
     awayLineup: mockAwayLineupID5,
   },
   "6": {
-    leagueId: 73, // <-- ID ADICIONADO (Série C)
+    leagueId: 73,
     apiMatch: {
       fixture: {
         id: 6,
@@ -959,7 +958,7 @@ const realMatchesDB = {
     awayLineup: mockAwayLineupID6,
   },
   "7": {
-    leagueId: 74, // <-- ID ADICIONADO (Série D)
+    leagueId: 74,
     apiMatch: {
       fixture: {
         id: 7,
@@ -981,7 +980,7 @@ const realMatchesDB = {
     awayLineup: mockAwayLineupID7,
   },
   "8": {
-    leagueId: 71, // <-- ID ADICIONADO
+    leagueId: 71,
     apiMatch: {
       fixture: {
         id: 8,
@@ -1001,20 +1000,20 @@ const realMatchesDB = {
   },
 };
 
-// --- FUNÇÃO MOCK (para Home.tsx) ---
 export const fetchMatchesByLeague = async (
   leagueId: number,
   season: number
 ) => {
-  console.warn(`USANDO DADOS MOCKADOS (REAIS): fetchMatchesByLeague para ID ${leagueId}`);
+  console.warn(
+    `USANDO DADOS MOCKADOS (REAIS): fetchMatchesByLeague para ID ${leagueId}`
+  );
   await new Promise((res) => setTimeout(res, 500));
-  
-  // --- LÓGICA DE FILTRO CORRIGIDA ---
-  const allMatches = Object.values(realMatchesDB);
-  const filteredMatches = allMatches.filter(match => match.leagueId === leagueId);
-  // ---------------------------------
 
-  // Retorna uma lista de jogos "reais" filtrados
+  const allMatches = Object.values(realMatchesDB);
+  const filteredMatches = allMatches.filter(
+    (match) => match.leagueId === leagueId
+  );
+
   return filteredMatches.map((match) => ({
     fixture: match.apiMatch.fixture,
     teams: match.apiMatch.teams,
@@ -1022,7 +1021,6 @@ export const fetchMatchesByLeague = async (
   }));
 };
 
-// --- FUNÇÃO MOCK (para MatchDetails.tsx) ---
 export const fetchMatchDetails = async (fixtureId: number) => {
   console.warn(`USANDO DADOS MOCKADOS (REAIS) para ID: ${fixtureId}`);
   await new Promise((res) => setTimeout(res, 800));
@@ -1054,8 +1052,6 @@ export const fetchMatchDetails = async (fixtureId: number) => {
     };
   }
 
-  // Remove o 'leagueId' antes de retornar para MatchDetails,
-  // pois essa tela não precisa dele.
   const { leagueId, ...restOfMatchData } = matchData;
   return restOfMatchData;
 };
